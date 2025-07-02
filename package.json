@@ -9,6 +9,7 @@
   "author": "BijjouPro08",
   "license": "MIT",
   "dependencies": {
+    "dotenv": "^17.0.1",
     "express": "^4.19.2"
   }
 }
