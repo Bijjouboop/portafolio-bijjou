@@ -1,0 +1,14 @@
+{
+  "name": "portafolio-bijjoupro08",
+  "version": "1.0.0",
+  "description": "Portafolio profesional de BijjouPro08: desarrollador de bots de Discord y owner de SpainRp.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "author": "BijjouPro08",
+  "license": "MIT",
+  "dependencies": {
+    "express": "^4.19.2"
+  }
+}
