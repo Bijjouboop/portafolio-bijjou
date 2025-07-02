@@ -271,11 +271,27 @@ body.light .stat-label {
         position: absolute;
         top: 70px;
         right: 20px;
-        background: var(--color-card);
+        background: #181a2a;
         border-radius: 12px;
-        box-shadow: 0 4px 24px #0004;
+        box-shadow: 0 4px 24px #3ee9a6cc;
         padding: 1.2rem 2rem;
         z-index: 19;
+    }
+    #main-nav.open {
+        display: flex;
+    }
+    #main-nav a {
+        color: #fff !important;
+        text-shadow: 0 2px 8px #3ee9a6cc;
+        margin: 0.7rem 0;
+        font-size: 1.2rem;
+        font-weight: 900;
+        letter-spacing: 1px;
+        transition: color 0.2s;
+    }
+    #main-nav a:hover {
+        color: #3ee9a6 !important;
+        text-shadow: 0 2px 12px #fff;
     }
     #main-nav.open {
         display: flex;
