@@ -3,7 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Portafolio de BijjouPro08: desarrollo de bots, sistemas y configuración de servidores de Discord. Experiencia, proyectos y contacto.">
     <title>Portafolio BijjouPro08</title>
+    <link rel="icon" href="img/bijjou_logo.png" type="image/png">
     <link rel="stylesheet" href="style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -13,14 +15,14 @@
 <body>
     <header>
         <div class="container header-container">
-            <div class="logo">Portafolio Bijjou | Owner</div>
-            <nav id="main-nav">
+            <div class="logo" tabindex="0">Portafolio Bijjou | Owner</div>
+            <nav id="main-nav" aria-label="Navegación principal">
                 <a href="#experiencia">Experiencia</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#galeria">Galería</a>
                 <a href="#contacto">Contacto</a>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="Abrir menú"><span></span><span></span><span></span></button>
+            <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
     </header>
     <main>
@@ -43,7 +45,7 @@
         <section class="hero">
             <div class="container hero-content">
                 <div class="avatar-section" style="display: flex; align-items: center; gap: 1.2rem;">
-                    <img src="https://media.discordapp.net/attachments/1329945759541497906/1389995137316159528/bijjou_logo.jpg?ex=6866a559&is=686553d9&hm=7a042e7b8633faa9b4fd4d07a05cec4e68982227bfd2ee8d72341f9bf8bd3c4f&=&format=webp&width=651&height=649" alt="Avatar Bijjou" class="avatar">
+                    <img src="img/bijjou_logo.png" alt="Avatar Bijjou" class="avatar" width="140" height="140" loading="lazy">
                     <span class="status">Activo 24/7</span>
                 </div>
                 <h1>Bienvenido al <span class="highlight">Portafolio de BijjouPro08</span> <span class="wave">👋</span></h1>
@@ -52,6 +54,13 @@
                     <a href="https://discord.com/users/BijjouPro08" class="btn discord" target="_blank">Discord</a>
                     <a href="mailto:bijjou433@gmail.com" class="btn mail">Correo</a>
                 </div>
+            </div>
+        </section>
+        <!-- SOBRE MÍ -->
+        <section class="sobre-mi" style="background: var(--color-bg-alt); padding: 36px 0 24px 0; text-align: center;">
+            <div class="container" style="max-width: 700px; margin: 0 auto;">
+                <h2 style="color: #5b6aff; font-size: 2rem; font-weight: 900; margin-bottom: 1.2rem;">Sobre mí</h2>
+                <p style="font-size: 1.15rem; color: var(--color-text); margin-bottom: 1.2rem;">¡Hola! Soy <b>BijjouPro08</b>, desarrollador apasionado por la automatización y la creación de sistemas personalizados para Discord. Me especializo en bots, sistemas de gestión y configuraciones avanzadas para comunidades de roleplay y servidores profesionales.<br><br>Mi objetivo es ofrecer soluciones eficientes, seguras y adaptadas a las necesidades de cada cliente. Me gusta trabajar de forma cercana, escuchar ideas y convertirlas en realidad con tecnología y creatividad.<br><br><i>¿Tienes un reto o idea? ¡Hablemos y lo hacemos posible!</i></p>
             </div>
         </section>
         <section class="tecnologias">
@@ -129,24 +138,31 @@
                 <h2>Testimonios de Servidores</h2>
                 <div class="testimonios-grid">
                     <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="https://media.discordapp.net/attachments/1329945759541497906/1390007392938492054/logo_espana__1_-removebg-preview.png?ex=6866b0c3&is=68655f43&hm=80099cc295c6d7153ef2770f0dc26fe53ff7d9d963b53ca5323c2b1915dc9439&=&format=webp&quality=lossless" alt="SpainRp"></div>
+                        <div class="testimonio-avatar"><img src="img/testimonio1.png" alt="Logo SpainRp" width="54" height="54" loading="lazy"></div>
                         <div class="testimonio-content">
                             <p>"El mejor bot y sistemas únicos para roleplay. ¡Hecho a medida para su propio servidor!"</p>
                             <span class="testimonio-nombre">SpainRP V1 | V2</span>
                         </div>
                     </div>
                     <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="https://media.discordapp.net/attachments/1329945759541497906/1390007393319915581/nexusrp.png?ex=6866b0c3&is=68655f43&hm=754a6a4372e289f01eefc421f0e2cad438c0bb1d232e8fcc6f78c2bc87663b32&=&format=webp&quality=lossless&width=545&height=545" alt="RoleplayX"></div>
+                        <div class="testimonio-avatar"><img src="img/testimonio2.png" alt="Logo NexusRP" width="54" height="54" loading="lazy"></div>
                         <div class="testimonio-content">
                             <p>"Automatización total y bots a medida. ¡Bijjou es garantía!"</p>
                             <span class="testimonio-nombre">NexusRP</span>
                         </div>
                     </div>
                     <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="https://media.discordapp.net/attachments/1329945759541497906/1390007436458459277/4592-developer-purple.png?ex=6866b0cd&is=68655f4d&hm=a12156414ee06e5db72832ac26adcedb710ea6f68b405c6ffb8be703ae6ed7f5&=&format=webp&quality=lossless" alt="ComunidadZ"></div>
+                        <div class="testimonio-avatar"><img src="img/testimonio3.png" alt="Logo ComunidadZ" width="54" height="54" loading="lazy"></div>
                         <div class="testimonio-content">
                             <p>"Soporte rápido y sistemas de tickets increíbles. ¡Gracias Bijjou!"</p>
                             <span class="testimonio-nombre">ComunidadZ</span>
+                        </div>
+                    </div>
+                    <div class="testimonio-card">
+                        <div class="testimonio-avatar"><img src="img/testimonio4.png" alt="Logo CanariasRP" width="54" height="54" loading="lazy"></div>
+                        <div class="testimonio-content">
+                            <p>"Sistema DNIs, verificación con Roblox y mucho más. ¡Automatización y seguridad top!"</p>
+                            <span class="testimonio-nombre">CanariasRP</span>
                         </div>
                     </div>
                 </div>
