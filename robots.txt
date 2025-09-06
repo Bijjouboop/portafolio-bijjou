@@ -1,0 +1,11 @@
+# robots.txt for Portafolio Bijjou
+# Replace 'your-domain.example' with your real domain before deploying
+
+User-agent: *
+Allow: /
+
+# Sitemap location (update with your real domain)
+Sitemap: https://portafolio-bijjou.onrender.com/sitemap.xml
+
+# Optional: Host directive (replace with your domain)
+Host: portafolio-bijjou.onrender.com

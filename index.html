@@ -6,258 +6,323 @@
     <meta name="description" content="Portafolio de BijjouPro08: desarrollo de bots, sistemas y configuración de servidores de Discord. Experiencia, proyectos y contacto.">
     <title>Portafolio BijjouPro08</title>
     <link rel="icon" href="img/bijjou_logo.png" type="image/png">
+    <!-- SEO & Social -->
+    <meta name="robots" content="index, follow">
+    <meta name="google-site-verification" content="5iA38XeTmkAdOZxiNdGRY0ypZ1q9mv5gysP2cf5n5yM">
+    <meta name="keywords" content="bots discord, desarrollo bots discord, contratar bot discord, servidor discord, sistemas discord, MDT policial, DNIs virtuales">
+    <link rel="canonical" href="https://portafolio-bijjou.onrender.com/">
+    <meta property="og:type" content="website">
+    <meta property="og:title" content="BijjouPro08 — Bots y sistemas para Discord">
+    <meta property="og:description" content="Desarrollo y configuración de bots y sistemas para Discord: DNIs, MDT, economía, tickets y soporte. Contacto para contratar y demos.">
+    <meta property="og:image" content="https://portafolio-bijjou.onrender.com/img/bijjou_logo.png">
+    <meta property="og:url" content="https://portafolio-bijjou.onrender.com/">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="BijjouPro08 — Bots y sistemas para Discord">
+    <meta name="twitter:description" content="Desarrollo y configuración de bots y sistemas para Discord: DNIs, MDT, economía, tickets y soporte. Contacto para contratar y demos.">
+    <meta name="twitter:image" content="https://portafolio-bijjou.onrender.com/img/bijjou_logo.png">
+        <script type="application/ld+json">
+        {
+            "@context": "https://schema.org",
+            "@type": "Organization",
+            "name": "BijjouPro08",
+            "url": "https://portafolio-bijjou.onrender.com/",
+            "logo": "https://portafolio-bijjou.onrender.com/img/bijjou_logo.png",
+            "sameAs": [
+                "https://discord.com/users/BijjouPro08"
+            ],
+            "description": "Desarrollo de bots y sistemas para Discord. Servicios: DNIs, MDT, economía, tickets, soporte y personalizaciones.",
+            "contactPoint": [{
+                "@type": "ContactPoint",
+                "contactType": "customer support",
+                "email": "mailto:bijjou433@gmail.com"
+            }]
+        }
+        </script>
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
     <script defer src="main.js"></script>
 </head>
-<body>
-    <header>
+<body class="minimal-bg">
+    <header class="minimal-header">
         <div class="container header-container">
-            <div class="logo" tabindex="0">Portafolio Bijjou | Owner</div>
-            <nav id="main-nav" aria-label="Navegación principal">
+            <div class="logo minimal-logo" tabindex="0">
+                <img src="img/bijjou_logo.png" alt="Logo Bijjou" width="40" height="40" style="vertical-align:middle; margin-right:10px; border-radius:8px;">BijjouPro08
+            </div>
+            <nav id="main-nav" class="minimal-nav" aria-label="Navegación principal">
                 <a href="#experiencia">Experiencia</a>
                 <a href="#proyectos">Proyectos</a>
                 <a href="#galeria">Galería</a>
                 <a href="#contacto">Contacto</a>
             </nav>
-            <button class="hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
+            <button class="hamburger minimal-hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
         </div>
     </header>
-    <main>
-        <section class="hero">
+    <main class="minimal-main">
+        <section class="hero minimal-hero">
             <div class="container hero-content">
-                <div class="avatar-section" style="display: flex; align-items: center; gap: 1.2rem;">
-                    <img src="img/bijjou_logo.png" alt="Avatar Bijjou" class="avatar" width="140" height="140" loading="lazy">
-                    <span class="status">Activo 24/7</span>
+                <div class="avatar-section minimal-avatar-section">
+                    <img src="img/bijjou_logo.png" alt="Avatar Bijjou" class="avatar minimal-avatar" width="120" height="120" loading="lazy">
+                    <span class="status minimal-status">Offline</span>
                 </div>
-                <h1>Bienvenido al <span class="highlight">Portafolio de BijjouPro08</span> <span class="wave">👋</span></h1>
-                <p class="subtitle">Desarrollador de Bots y configurador de servidores de Discord.<br>Owner de SpainRp (+500 miembros) | Especializado en sistemas de ERLC, DNIs, economía, tickets y más.</p>
-                <div class="cta-buttons">
-                    <a href="https://discord.com/users/BijjouPro08" class="btn discord" target="_blank">Discord</a>
-                    <a href="mailto:bijjou433@gmail.com" class="btn mail">Correo</a>
+                <h1 class="minimal-title">Portafolio <span class="highlight minimal-highlight">BijjouPro08</span> <span class="wave">👋</span></h1>
+                <p class="subtitle minimal-subtitle">Desarrollador de Bots y sistemas para Discord.<br><span class="minimal-owner">Owner de SpainRp (+1200 miembros)</span> | Especializado en sistemas de ERLC, DNIs, economía, tickets y más.</p>
+                <div class="cta-buttons minimal-cta">
+                    <a href="https://discord.com/users/BijjouPro08" class="btn discord minimal-btn" target="_blank">Discord</a>
+                    <a href="mailto:bijjou433@gmail.com" class="btn mail minimal-btn">Correo</a>
                 </div>
             </div>
         </section>
         <!-- SOBRE MÍ -->
-        <section class="sobre-mi" style="background: var(--color-bg-alt); padding: 36px 0 24px 0; text-align: center;">
-            <div class="container" style="max-width: 700px; margin: 0 auto;">
-                <h2 style="color: #5b6aff; font-size: 2rem; font-weight: 900; margin-bottom: 1.2rem;">Sobre mí</h2>
-                <p style="font-size: 1.15rem; color: var(--color-text); margin-bottom: 1.2rem;">¡Hola! Soy <b>BijjouPro08</b>, desarrollador apasionado por la automatización y la creación de sistemas personalizados para Discord. Me especializo en bots, sistemas de gestión y configuraciones avanzadas para comunidades de roleplay y servidores profesionales.<br><br>Mi objetivo es ofrecer soluciones eficientes, seguras y adaptadas a las necesidades de cada cliente. Me gusta trabajar de forma cercana, escuchar ideas y convertirlas en realidad con tecnología y creatividad.<br><br><i>¿Tienes un reto o idea? ¡Hablemos y lo hacemos posible!</i></p>
+        <section class="sobre-mi minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Sobre mí</h2>
+                <p class="minimal-p">¡Hola! Soy <b>BijjouPro08</b>, desarrollador apasionado por la automatización y la creación de sistemas personalizados para Discord. Me especializo en bots, sistemas de gestión y configuraciones avanzadas para comunidades de roleplay y servidores profesionales.<br><br>Mi objetivo es ofrecer soluciones eficientes, seguras y adaptadas a las necesidades de cada cliente. Me gusta trabajar de forma cercana, escuchar ideas y convertirlas en realidad con tecnología y creatividad.<br><br><i>¿Tienes un reto o idea? ¡Hablemos y lo hacemos posible!</i></p>
             </div>
         </section>
-        <section class="stats-section">
-            <div class="container stats-container">
-                <div class="stat-card">
-                    <span class="stat-number" data-target="6">0</span>
-                    <span class="stat-label">Bots y sistemas creados</span>
+        <section class="stats-section minimal-section">
+            <div class="container stats-container minimal-stats">
+                <div class="stat-card minimal-stat-card">
+                    <span class="stat-number minimal-stat-number" data-target="6">0</span>
+                    <span class="stat-label minimal-stat-label">Bots y sistemas</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number" data-target="9">0</span>
-                    <span class="stat-label">Servidores configurados</span>
+                <div class="stat-card minimal-stat-card">
+                    <span class="stat-number minimal-stat-number" data-target="9">0</span>
+                    <span class="stat-label minimal-stat-label">Servidores</span>
                 </div>
-                <div class="stat-card">
-                    <span class="stat-number" data-target="+2600">0</span>
-                    <span class="stat-label">Miembros Satisfechos</span>
-                </div>
-            </div>
-        </section>
-        <section class="tecnologias">
-            <div class="container">
-                <h2>Tecnologías que manejo</h2>
-                <div class="tech-list">
-                    <span><img src="https://imgur.com/iiZHvbr.png" alt="JavaScript" class="tech-logo">JavaScript</span>
-                    <span><img src="https://imgur.com/dtSLApw.png" alt="Node.js" class="tech-logo">Node.js</span>
-                    <span><img src="https://imgur.com/lJvr5lj.png" alt="Discord.js" class="tech-logo">Discord.js</span>
-                    <span><img src="https://imgur.com/RFS2OV9.png" alt="HTML5" class="tech-logo">HTML5</span>
-                    <span><img src="https://imgur.com/BKnkzS1.png" alt="CSS3" class="tech-logo">CSS3</span>
-                    <span><img src="https://imgur.com/upSYAos.png" alt="MongoDB" class="tech-logo">MongoDB</span>
-                    <span><img src="https://imgur.com/tVnyZ8X.png" alt="MySQL" class="tech-logo">MySQL</span>
-                    <span><img src="https://imgur.com/OTRFnb6.png" alt="Git" class="tech-logo">Git</span>
-                    <span><img src="https://imgur.com/hXbhLAi.png" alt="React" class="tech-logo">React</span>
+                <div class="stat-card minimal-stat-card">
+                    <span class="stat-number minimal-stat-number" data-target="+2600">0</span>
+                    <span class="stat-label minimal-stat-label">Miembros</span>
                 </div>
             </div>
         </section>
-        <section id="experiencia" class="experiencia">
-            <div class="container">
-                <h2>Experiencia</h2>
-                <div class="exp-cards">
-                    <div class="exp-card">
-                        <span class="exp-icon">🤖</span>
+        <section class="tecnologias minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Tecnologías</h2>
+                <div class="tech-list minimal-tech-list">
+                    <span><img src="img/js.svg" alt="JavaScript" class="tech-logo minimal-tech-logo">JavaScript</span>
+                    <span><img src="img/node.svg" alt="Node.js" class="tech-logo minimal-tech-logo">Node.js</span>
+                    <span><img src="img/discord.svg" alt="Discord.js" class="tech-logo minimal-tech-logo">Discord.js</span>
+                    <span><img src="img/html5.svg" alt="HTML5" class="tech-logo minimal-tech-logo">HTML5</span>
+                    <span><img src="img/css3.svg" alt="CSS3" class="tech-logo minimal-tech-logo">CSS3</span>
+                    <span><img src="img/db.svg" alt="MongoDB" class="tech-logo minimal-tech-logo">MongoDB</span>
+                    <span><img src="img/db.svg" alt="MySQL" class="tech-logo minimal-tech-logo">MySQL</span>
+                    <span><img src="img/db.svg" alt="Git" class="tech-logo minimal-tech-logo">Git</span>
+                    <span><img src="img/db.svg" alt="React" class="tech-logo minimal-tech-logo">React</span>
+                </div>
+            </div>
+        </section>
+        <section id="experiencia" class="experiencia minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Experiencia</h2>
+                <div class="exp-cards minimal-exp-cards">
+                    <div class="exp-card minimal-exp-card">
+                        <span class="exp-icon minimal-exp-icon">🤖</span>
                         <div>
-                            <h3>Desarrollo de Bots para Discord</h3>
-                            <p>Especializado en sistemas de DNI con base de datos, soporte y moderación del servidor, soporte de tickets, arrestos, multas y conexión con MDT policial. Experiencia en automatización y gestión de comunidades de roleplay.</p>
+                            <h3 class="minimal-h3">Desarrollo de Bots para Discord</h3>
+                            <p class="minimal-p">Especializado en sistemas de DNI con base de datos, soporte y moderación del servidor, soporte de tickets, arrestos, multas y conexión con MDT policial. Experiencia en automatización y gestión de comunidades de roleplay.</p>
                         </div>
                     </div>
-                    <div class="exp-card">
-                        <span class="exp-icon">🛠️</span>
+                    <div class="exp-card minimal-exp-card">
+                        <span class="exp-icon minimal-exp-icon">🛠️</span>
                         <div>
-                            <h3>Configuración de Servidores</h3>
-                            <p>Optimización de canales, roles, permisos y sistemas avanzados para servidores de Discord.</p>
+                            <h3 class="minimal-h3">Configuración de Servidores</h3>
+                            <p class="minimal-p">Optimización de canales, roles, permisos y sistemas avanzados para servidores de Discord.</p>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="proyectos" class="proyectos">
-            <div class="container">
-                <h2>Proyectos Destacados</h2>
-                <div class="proyectos-grid">
-                    <div class="proyecto-card">
-                        <span class="proyecto-icon">🪪</span>
-                        <h3>Sistema de DNI Virtual</h3>
-                        <p>Identificación digital segura y personalizable. Acceso rápido y validación de identidad para todos los usuarios.</p>
+        <section id="proyectos" class="proyectos minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Proyectos Destacados</h2>
+                <div class="proyectos-grid minimal-proyectos-grid">
+                    <div class="proyecto-card minimal-proyecto-card">
+                        <span class="proyecto-icon minimal-proyecto-icon">🪪</span>
+                        <h3 class="minimal-h3">Sistema de DNI Virtual</h3>
+                        <p class="minimal-p">Identificación digital segura y personalizable. Acceso rápido y validación de identidad para todos los usuarios.</p>
                     </div>
-                    <div class="proyecto-card">
-                        <span class="proyecto-icon">🚔</span>
-                        <h3>Arrestos y Multas</h3>
-                        <p>Control total de sanciones y registro de arrestos en tiempo real. Transparencia y gestión eficiente para la administración policial.</p>
+                    <div class="proyecto-card minimal-proyecto-card">
+                        <span class="proyecto-icon minimal-proyecto-icon">🚔</span>
+                        <h3 class="minimal-h3">Arrestos y Multas</h3>
+                        <p class="minimal-p">Control total de sanciones y registro de arrestos en tiempo real. Transparencia y gestión eficiente para la administración policial.</p>
                     </div>
-                    <div class="proyecto-card">
-                        <span class="proyecto-icon">💰</span>
-                        <h3>Economía</h3>
-                        <p>Gestión de cartera, ingresos y ranking de usuarios. Todo el movimiento económico de tu servidor en un solo lugar.</p>
+                    <div class="proyecto-card minimal-proyecto-card">
+                        <span class="proyecto-icon minimal-proyecto-icon">💰</span>
+                        <h3 class="minimal-h3">Economía</h3>
+                        <p class="minimal-p">Gestión de cartera, ingresos y ranking de usuarios. Todo el movimiento económico de tu servidor en un solo lugar.</p>
                     </div>
-                    <div class="proyecto-card">
-                        <span class="proyecto-icon">🎫</span>
-                        <h3>Tickets</h3>
-                        <p>Panel de soporte y gestión de solicitudes. Atención personalizada y seguimiento eficiente de cada caso.</p>
+                    <div class="proyecto-card minimal-proyecto-card">
+                        <span class="proyecto-icon minimal-proyecto-icon">🎫</span>
+                        <h3 class="minimal-h3">Tickets</h3>
+                        <p class="minimal-p">Panel de soporte y gestión de solicitudes. Atención personalizada y seguimiento eficiente de cada caso.</p>
                     </div>
-                    <div class="proyecto-card">
-                        <span class="proyecto-icon">🖥️</span>
-                        <h3>MDT Policial</h3>
-                        <p>Video: Sistema MDT Policial. Integración con base de datos policial para control y consulta en tiempo real.</p>
+                    <div class="proyecto-card minimal-proyecto-card">
+                        <span class="proyecto-icon minimal-proyecto-icon">🖥️</span>
+                        <h3 class="minimal-h3">MDT Policial</h3>
+                        <p class="minimal-p">Video: Sistema MDT Policial. Integración con base de datos policial para control y consulta en tiempo real.</p>
                     </div>
                 </div>
             </div>
         </section>
         <!-- Galería (única, bien ubicada) -->
-        <section id="galeria" class="galeria">
-            <div class="container">
-                <h2>Galería de Sistemas</h2>
-                <div class="galeria-grid">
-                    <div class="galeria-card">
-                        <span class="galeria-icon">🪪</span>
-                        <h4>DNI Virtual</h4>
+        <section id="galeria" class="galeria minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Galería de Sistemas</h2>
+                <div class="galeria-grid minimal-galeria-grid">
+                    <div class="galeria-card minimal-galeria-card">
+                        <span class="galeria-icon minimal-galeria-icon">🪪</span>
+                        <h4 class="minimal-h4">DNI Virtual</h4>
                         <ul>
                             <li>DNI Seguridad: Seguridad y validación</li>
                             <li>DNI Funciones: Funciones y visualización</li>
                         </ul>
                     </div>
-                    <div class="galeria-card">
-                        <span class="galeria-icon">🚔</span>
-                        <h4>Arrestos y Multas</h4>
+                    <div class="galeria-card minimal-galeria-card">
+                        <span class="galeria-icon minimal-galeria-icon">🚔</span>
+                        <h4 class="minimal-h4">Arrestos y Multas</h4>
                         <ul>
                             <li>Arrestos: Detalle de arrestos</li>
                             <li>Multas: Gestión de multas</li>
                         </ul>
                     </div>
-                    <div class="galeria-card">
-                        <span class="galeria-icon">💰</span>
-                        <h4>Economía</h4>
+                    <div class="galeria-card minimal-galeria-card">
+                        <span class="galeria-icon minimal-galeria-icon">💰</span>
+                        <h4 class="minimal-h4">Economía</h4>
                         <ul>
                             <li>Cartera</li>
                             <li>Ingresos</li>
                             <li>Ranking</li>
                         </ul>
                     </div>
-                    <div class="galeria-card">
-                        <span class="galeria-icon">🎫</span>
-                        <h4>Tickets</h4>
+                    <div class="galeria-card minimal-galeria-card">
+                        <span class="galeria-icon minimal-galeria-icon">🎫</span>
+                        <h4 class="minimal-h4">Tickets</h4>
                         <ul>
                             <li>Tickets Soporte: Panel de tickets</li>
                             <li>Tickets Detalle: Detalle de solicitudes</li>
                         </ul>
                     </div>
-                    <div class="galeria-card">
-                        <span class="galeria-icon">🖥️</span>
-                        <h4>MDT Policial</h4>
+                    <div class="galeria-card minimal-galeria-card">
+                        <span class="galeria-icon minimal-galeria-icon">🖥️</span>
+                        <h4 class="minimal-h4">MDT Policial</h4>
                         <ul>
                             <li>Video: Sistema MDT Policial</li>
                         </ul>
-                        <div class="mdt-video">
-                            <div style="position:relative;padding-bottom:56.25%;height:0;overflow:hidden;border-radius:12px;box-shadow:0 2px 12px #0005;">
-                                <iframe src="https://www.youtube.com/embed/KvEqxL-36sI?rel=0&modestbranding=1" title="Sistema MDT Policial" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen style="position:absolute;top:0;left:0;width:100%;height:100%;border-radius:12px;"></iframe>
+                        <div class="mdt-video minimal-mdt-video">
+                            <div class="minimal-video-wrapper">
+                                <!-- Click-to-load YouTube (privacy-enhanced, no requests until user interacts) -->
+                                <div class="youtube-lite" data-video-id="KvEqxL-36sI" data-src="https://www.youtube-nocookie.com/embed/KvEqxL-36sI?rel=0&modestbranding=1" role="button" aria-label="Reproducir video MDT Policial" tabindex="0">
+                                    <button class="youtube-play" aria-hidden="true">►</button>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="galeria-info">
+                <div class="galeria-info minimal-galeria-info">
                     <span>✨ ¿Quieres ver más?</span>
                     <p>Por motivos de privacidad y para no saturar la galería, solo muestro algunas imágenes.<br>¡Pide más demostraciones o capturas por MD en Discord! <b>BijjouPro08</b></p>
                 </div>
             </div>
         </section>
-        <section class="testimonios">
-            <div class="container">
-                <h2>Testimonios de Servidores</h2>
-                <div class="testimonios-grid">
-                    <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="img/testimonio1.png" alt="Logo SpainRp" width="54" height="54" loading="lazy"></div>
-                        <div class="testimonio-content">
+        <section class="testimonios minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">Testimonios de Servidores</h2>
+                <div class="testimonios-grid minimal-testimonios-grid">
+                    <div class="testimonio-card minimal-testimonio-card">
+                        <div class="testimonio-avatar minimal-testimonio-avatar"><img src="img/testimonio1.png" alt="Logo SpainRp" width="54" height="54" loading="lazy"></div>
+                        <div class="testimonio-content minimal-testimonio-content">
                             <p>"El mejor bot y sistemas únicos para roleplay. ¡Hecho a medida para su propio servidor!"</p>
-                            <span class="testimonio-nombre">SpainRP V1 | V2</span>
+                            <span class="testimonio-nombre minimal-testimonio-nombre">SpainRP V1 | V2</span>
                         </div>
                     </div>
-                    <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="img/testimonio2.png" alt="Logo NexusRP" width="54" height="54" loading="lazy"></div>
-                        <div class="testimonio-content">
+                    <div class="testimonio-card minimal-testimonio-card">
+                        <div class="testimonio-avatar minimal-testimonio-avatar"><img src="img/testimonio2.png" alt="Logo NexusRP" width="54" height="54" loading="lazy"></div>
+                        <div class="testimonio-content minimal-testimonio-content">
                             <p>"Automatización total y bots a medida. ¡Bijjou es garantía!"</p>
-                            <span class="testimonio-nombre">NexusRP</span>
+                            <span class="testimonio-nombre minimal-testimonio-nombre">NexusRP</span>
                         </div>
                     </div>
-                    <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="img/testimonio3.png" alt="Logo ComunidadZ" width="54" height="54" loading="lazy"></div>
-                        <div class="testimonio-content">
+                    <div class="testimonio-card minimal-testimonio-card">
+                        <div class="testimonio-avatar minimal-testimonio-avatar"><img src="img/testimonio3.png" alt="Logo ComunidadZ" width="54" height="54" loading="lazy"></div>
+                        <div class="testimonio-content minimal-testimonio-content">
                             <p>"Soporte rápido y sistemas de tickets increíbles. ¡Gracias Bijjou!"</p>
-                            <span class="testimonio-nombre">ComunidadZ</span>
+                            <span class="testimonio-nombre minimal-testimonio-nombre">ComunidadZ</span>
                         </div>
                     </div>
-                    <div class="testimonio-card">
-                        <div class="testimonio-avatar"><img src="img/testimonio4.png" alt="Logo CanariasRP" width="54" height="54" loading="lazy"></div>
-                        <div class="testimonio-content">
+                    <div class="testimonio-card minimal-testimonio-card">
+                        <div class="testimonio-avatar minimal-testimonio-avatar"><img src="img/testimonio4.png" alt="Logo CanariasRP" width="54" height="54" loading="lazy"></div>
+                        <div class="testimonio-content minimal-testimonio-content">
                             <p>"Sistema DNIs, verificación con Roblox y mucho más. ¡Automatización y seguridad top!"</p>
-                            <span class="testimonio-nombre">CanariasRP</span>
+                            <span class="testimonio-nombre minimal-testimonio-nombre">CanariasRP</span>
                         </div>
                     </div>
                 </div>
             </div>
         </section>
-        <section id="contacto" class="contacto">
-            <div class="container">
-                <h2>¿Te interesa?</h2>
-                <p>Contáctame para contratar un bot, pedir una demo o personalizar tu servidor.</p>
-                <!-- Formspree integration: reemplaza TU_EMAIL_AQUI por tu email real o el endpoint de tu proyecto Formspree -->
-                <form id="soporte-form" class="soporte-form" autocomplete="off" action="https://formspree.io/f/xovwbjbq" method="POST">
-                    <div class="form-group">
+        <section id="contacto" class="contacto minimal-section">
+            <div class="container minimal-container">
+                <h2 class="minimal-h2">¿Te interesa?</h2>
+                <p class="minimal-p">Contáctame para contratar un bot, pedir una demo o personalizar tu servidor.</p>
+                <form id="soporte-form" class="soporte-form minimal-form" autocomplete="off" action="https://formspree.io/f/xovwbjbq" method="POST">
+                    <div class="form-group minimal-form-group">
                         <input type="text" name="nombre" placeholder="Tu nombre" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group minimal-form-group">
                         <input type="email" name="email" placeholder="Tu correo" required>
                     </div>
-                    <div class="form-group">
+                    <div class="form-group minimal-form-group">
                         <textarea name="mensaje" placeholder="¿En qué puedo ayudarte?" required></textarea>
                     </div>
-                    <!-- Campo oculto para evitar spam -->
                     <input type="text" name="_gotcha" style="display:none">
-                    <button type="submit" class="btn mail">Enviar mensaje</button>
-                    <div class="form-feedback" id="form-feedback"></div>
+                    <button type="submit" class="btn mail minimal-btn">Enviar mensaje</button>
+                    <div class="form-feedback minimal-form-feedback" id="form-feedback"></div>
                 </form>
-                <div class="contact-links">
-                    <button type="button" class="btn mail copy-btn" data-copy="bijjou433@gmail.com">Copiar Email</button>
-                    <button type="button" class="btn discord copy-btn" data-copy="BijjouPro08">Copiar Discord</button>
-                    <a href="mailto:bijjou433@gmail.com" class="btn mail">Email: bijjou433@gmail.com</a>
-                    <a href="https://discord.com/users/BijjouPro08" class="btn discord" target="_blank">Discord: BijjouPro08</a>
+                <div class="contact-links minimal-contact-links">
+                    <button type="button" class="btn mail copy-btn minimal-btn" data-copy="bijjou433@gmail.com">Copiar Email</button>
+                    <button type="button" class="btn discord copy-btn minimal-btn" data-copy="BijjouPro08">Copiar Discord</button>
+                    <a href="mailto:bijjou433@gmail.com" class="btn mail minimal-btn">Email: bijjou433@gmail.com</a>
+                    <a href="https://discord.com/users/BijjouPro08" class="btn discord minimal-btn" target="_blank">Discord: BijjouPro08</a>
                 </div>
             </div>
         </section>
     </main>
-    <footer>
-        <div class="container">
+    <footer class="minimal-footer">
+        <div class="container minimal-container">
             <span>© 2025 BijjouPro08 — Portafolio creado con <span class="corazon">❤️</span> para la comunidad y los interesados. Derechos reservados.</span>
         </div>
     </footer>
 
 </body>
+    <script>
+    // Inject YouTube nocookie iframe only after user interaction to prevent ad/tracking preloads
+    ;(function(){
+        function loadYoutube(el){
+            if (!el || el.dataset.loaded) return;
+            var src = el.dataset.src || ('https://www.youtube-nocookie.com/embed/' + el.dataset.videoId + '?rel=0&modestbranding=1');
+            var iframe = document.createElement('iframe');
+            iframe.setAttribute('src', src);
+            iframe.setAttribute('title', 'Video');
+            iframe.setAttribute('frameborder', '0');
+            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+            iframe.setAttribute('allowfullscreen', '');
+            iframe.style.width = '100%';
+            iframe.style.height = '100%';
+            el.dataset.loaded = '1';
+            // replace placeholder with iframe
+            el.parentNode.replaceChild(iframe, el);
+        }
+        document.addEventListener('click', function(e){
+            var t = e.target.closest('.youtube-lite');
+            if (t) { loadYoutube(t); }
+        });
+        document.addEventListener('keydown', function(e){
+            if (e.key === 'Enter' || e.key === ' ') {
+                var t = document.activeElement;
+                if (t && t.classList && t.classList.contains('youtube-lite')) { e.preventDefault(); loadYoutube(t); }
+            }
+        });
+    })();
+    </script>
 </html>

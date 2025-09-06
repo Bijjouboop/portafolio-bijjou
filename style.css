@@ -1,3 +1,406 @@
+/* --- Estilos minimalistas y modernos tipo informático --- */
+body.minimal-bg {
+    background: #f7fafd;
+    color: #23272f;
+}
+.minimal-header {
+    background: #fff;
+    border-bottom: 1.5px solid #e0e6ef;
+    box-shadow: 0 2px 12px #e0e6ef33;
+    padding: 0.7rem 0;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+.minimal-logo {
+    font-size: 1.5rem;
+    font-weight: 800;
+    color: #23272f;
+    letter-spacing: 1.5px;
+    display: flex;
+    align-items: center;
+    gap: 0.7rem;
+    background: none;
+    text-shadow: none;
+}
+.minimal-nav a {
+    color: #23272f;
+    font-weight: 600;
+    font-size: 1.08rem;
+    margin-left: 1.2rem;
+    letter-spacing: 0.5px;
+    padding: 0.2em 0.1em;
+    border-radius: 6px;
+    transition: background 0.2s, color 0.2s;
+}
+.minimal-nav a:hover {
+    background: #e0e6ef;
+    color: #4f8cff;
+}
+.minimal-hamburger {
+    background: none;
+    border: none;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-left: 1.2rem;
+}
+.minimal-hamburger span {
+    width: 28px;
+    height: 3px;
+    background: #4f8cff;
+    border-radius: 2px;
+    display: block;
+    transition: all 0.3s;
+}
+.minimal-hero {
+    background: #f7fafd;
+    padding: 48px 0 32px 0;
+    text-align: center;
+}
+.minimal-avatar-section {
+    display: flex;
+    align-items: center;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+.minimal-avatar {
+    width: 120px;
+    height: 120px;
+    border-radius: 18px;
+    border: 2.5px solid #4f8cff;
+    background: #fff;
+    object-fit: cover;
+    box-shadow: 0 2px 12px #e0e6ef55;
+}
+.minimal-status {
+    background: #43d67522;
+    color: #43d675;
+    padding: 6px 18px;
+    border-radius: 20px;
+    font-weight: 700;
+    font-size: 1rem;
+    border: 1.2px solid #43d67544;
+}
+.minimal-title {
+    font-size: 2.2rem;
+    font-weight: 900;
+    color: #23272f;
+    margin: 1.2rem 0 0.5rem 0;
+    letter-spacing: 1px;
+}
+.minimal-highlight {
+    color: #4f8cff;
+}
+.minimal-subtitle {
+    color: #4f8cff;
+    font-size: 1.1rem;
+    margin-bottom: 1.5rem;
+    margin-top: 0.5rem;
+    font-weight: 500;
+}
+.minimal-owner {
+    color: #43d675;
+    font-weight: 700;
+}
+.minimal-cta {
+    display: flex;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-bottom: 1.2rem;
+}
+.minimal-btn {
+    background: #4f8cff;
+    color: #fff;
+    border-radius: 12px;
+    padding: 0.7rem 2rem;
+    font-size: 1.05rem;
+    font-weight: 700;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    border: none;
+    transition: background 0.2s, color 0.2s, box-shadow 0.2s;
+}
+.minimal-btn:hover, .minimal-btn:focus {
+    background: #23272f;
+    color: #fff;
+    box-shadow: 0 4px 16px #4f8cff33;
+}
+.minimal-section {
+    background: #fff;
+    padding: 40px 0 24px 0;
+    border-radius: 18px;
+    margin: 32px 0 0 0;
+    box-shadow: 0 2px 12px #e0e6ef33;
+}
+.minimal-container {
+    max-width: 900px;
+    margin: 0 auto;
+    width: 92%;
+}
+.minimal-h2 {
+    color: #4f8cff;
+    font-size: 1.7rem;
+    font-weight: 900;
+    margin-bottom: 1.2rem;
+    letter-spacing: 1px;
+    text-align: center;
+}
+.minimal-h3 {
+    color: #23272f;
+    font-size: 1.15rem;
+    font-weight: 700;
+    margin-bottom: 0.5rem;
+}
+.minimal-h4 {
+    color: #4f8cff;
+    font-size: 1.08rem;
+    font-weight: 700;
+    margin-bottom: 0.3rem;
+}
+.minimal-p {
+    color: #23272f;
+    font-size: 1.05rem;
+    margin-bottom: 1.1rem;
+    line-height: 1.6;
+}
+.minimal-stats {
+    gap: 2.2rem;
+    background: none;
+    box-shadow: none;
+}
+.minimal-stat-card {
+    background: #f7fafd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1.2rem 2rem;
+    min-width: 120px;
+    text-align: center;
+}
+.minimal-stat-number {
+    color: #4f8cff;
+    font-size: 1.3rem;
+    font-weight: 900;
+}
+.minimal-stat-label {
+    color: #23272f;
+    font-size: 1rem;
+    font-weight: 600;
+}
+.minimal-tech-list {
+    gap: 1rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minimal-tech-logo {
+    width: 22px;
+    height: 22px;
+    border-radius: 6px;
+    margin-right: 0.4rem;
+    background: #f7fafd;
+    box-shadow: 0 1px 4px #e0e6ef33;
+}
+.minimal-exp-cards {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minimal-exp-card {
+    background: #f7fafd;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1.2rem 2rem;
+    min-width: 220px;
+    max-width: 400px;
+    display: flex;
+    align-items: flex-start;
+    gap: 1rem;
+}
+.minimal-exp-icon {
+    font-size: 2rem;
+    color: #4f8cff;
+    margin-top: 0.2rem;
+}
+.minimal-proyectos-grid {
+    gap: 1.5rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minimal-proyecto-card {
+    background: #f7fafd;
+    border-radius: 14px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1.2rem 2rem;
+    min-width: 220px;
+    max-width: 320px;
+    text-align: center;
+    color: #23272f;
+    transition: box-shadow 0.2s, transform 0.2s;
+}
+.minimal-proyecto-card:hover {
+    box-shadow: 0 4px 16px #4f8cff33;
+    transform: translateY(-4px) scale(1.03);
+}
+.minimal-proyecto-icon {
+    font-size: 2rem;
+    color: #4f8cff;
+    margin-bottom: 0.5rem;
+}
+.minimal-galeria-grid {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minimal-galeria-card {
+    background: #f7fafd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1rem 1.5rem;
+    min-width: 180px;
+    max-width: 260px;
+    color: #23272f;
+    text-align: left;
+}
+.minimal-galeria-icon {
+    font-size: 1.5rem;
+    color: #4f8cff;
+    margin-bottom: 0.3rem;
+}
+.minimal-mdt-video {
+    margin-top: 0.7rem;
+}
+.minimal-video-wrapper {
+    position: relative;
+    padding-bottom: 56.25%;
+    height: 0;
+    overflow: hidden;
+    border-radius: 10px;
+    box-shadow: 0 2px 12px #e0e6ef33;
+}
+.minimal-video-wrapper iframe {
+    position: absolute;
+    top: 0; left: 0; width: 100%; height: 100%; border-radius: 10px;
+}
+.minimal-galeria-info {
+    text-align: center;
+    margin-top: 1.5rem;
+    color: #23272f;
+    font-size: 1.05rem;
+}
+.minimal-testimonios-grid {
+    gap: 1.2rem;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.minimal-testimonio-card {
+    background: #f7fafd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1rem 1.5rem;
+    min-width: 220px;
+    max-width: 340px;
+    color: #23272f;
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+}
+.minimal-testimonio-avatar img {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    object-fit: cover;
+    box-shadow: 0 1px 4px #e0e6ef33;
+}
+.minimal-testimonio-content p {
+    font-size: 1rem;
+    color: #4f8cff;
+    margin-bottom: 0.3rem;
+}
+.minimal-testimonio-nombre {
+    font-weight: 700;
+    color: #43d675;
+    font-size: 0.98rem;
+}
+.minimal-form {
+    background: #f7fafd;
+    border-radius: 12px;
+    box-shadow: 0 2px 8px #e0e6ef33;
+    padding: 1.2rem 1.5rem 1rem 1.5rem;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    max-width: 400px;
+    margin: 0 auto 1.2rem auto;
+}
+.minimal-form-group input,
+.minimal-form-group textarea {
+    background: #fff;
+    color: #23272f;
+    border: 1.2px solid #e0e6ef;
+    border-radius: 8px;
+    padding: 0.7rem 1rem;
+    font-size: 1rem;
+    margin-bottom: 0.2rem;
+    transition: border 0.2s, background 0.2s, color 0.2s;
+}
+.minimal-form-group input:focus,
+.minimal-form-group textarea:focus {
+    border-color: #4f8cff;
+    outline: none;
+}
+.minimal-form-feedback {
+    margin-top: 0.5rem;
+    font-size: 1rem;
+    color: #4f8cff;
+    min-height: 1.2em;
+}
+.minimal-contact-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1.2rem;
+    justify-content: center;
+    margin-top: 1.2rem;
+}
+.minimal-footer {
+    background: #fff;
+    color: #23272f;
+    text-align: center;
+    padding: 1.2rem 0;
+    font-size: 1rem;
+    margin-top: 2rem;
+    border-top: 1.5px solid #e0e6ef;
+}
+@media (max-width: 900px) {
+    .minimal-container {
+        width: 98%;
+    }
+    .minimal-header {
+        padding: 0.5rem 0;
+    }
+    .minimal-section {
+        padding: 24px 0 16px 0;
+        margin: 18px 0 0 0;
+    }
+    .minimal-hero {
+        padding: 32px 0 18px 0;
+    }
+}
+@media (max-width: 600px) {
+    .minimal-title {
+        font-size: 1.3rem;
+    }
+    .minimal-h2 {
+        font-size: 1.1rem;
+    }
+    .minimal-section {
+        padding: 12px 0 8px 0;
+        margin: 10px 0 0 0;
+    }
+    .minimal-container {
+        width: 100%;
+        padding: 0 2vw;
+    }
+}
 /* --- Efectos 3D y microinteracciones --- */
 .card-3d {
     perspective: 1200px;
@@ -1052,7 +1455,371 @@ section.hidden, section.show {
     transition: transform 0.18s, box-shadow 0.18s, filter 0.18s;
 }
 .tech-list span:hover .tech-logo {
-    transform: scale(1.11) rotate(-7deg);
-    box-shadow: 0 2px 8px #3ee9a6cc;
-    filter: brightness(1.15);
+        transform: scale(1.11) rotate(-7deg);
+        box-shadow: 0 2px 8px #3ee9a6cc;
+        filter: brightness(1.15);
 }
+
+/* -------------------------
+     Minimal redesign v2
+     - Mejor tipografía
+     - Navbar tipo "espejo" centrado con reflejo
+     - Paleta coherente y animaciones suaves
+     Este bloque está al final para sobreescribir reglas previas.
+     ------------------------- */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;800&display=swap');
+
+/* Tipografía global preferida (sobrescribe Montserrat si está presente) */
+* { font-family: 'Inter', 'Montserrat', Arial, sans-serif !important; }
+
+/* Palette base minimal - tonos oscuros con acento cian */
+:root {
+    --bg-dark-1: #0f1222;
+    --bg-dark-2: #1b2030;
+    --bg-card: rgba(255,255,255,0.03);
+    --accent: #5bb8ff;
+    --accent-2: #43d675;
+    --muted: #9aa6bf;
+    --glass: rgba(255,255,255,0.04);
+}
+
+body.minimal-bg {
+    background: linear-gradient(180deg, var(--bg-dark-1), var(--bg-dark-2));
+    color: #e6eef9;
+    -webkit-font-smoothing:antialiased;
+}
+
+/* Header / navbar centered (mirror style) */
+.minimal-header {
+    background: transparent;
+    border: none;
+    padding: 18px 0;
+    position: sticky;
+    top: 14px;
+    z-index: 60;
+}
+.minimal-header .header-container {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    position: relative;
+    padding: 0 2vw;
+}
+
+/* Nav pill centered with subtle glass and reflection */
+.minimal-nav {
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    gap: 18px;
+    align-items: center;
+    padding: 8px 18px;
+    border-radius: 999px;
+    background: linear-gradient(180deg, rgba(255,255,255,0.03), rgba(255,255,255,0.01));
+    box-shadow: 0 8px 32px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.02);
+    backdrop-filter: blur(6px) saturate(1.05);
+    -webkit-backdrop-filter: blur(6px) saturate(1.05);
+    transition: transform 0.28s ease, box-shadow 0.28s ease, opacity 0.28s ease;
+    z-index: 10;
+    pointer-events: auto;
+}
+
+/* Reflection / mirror effect under the nav */
+.minimal-nav::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    top: calc(100% + 6px);
+    height: 42px;
+    transform: scaleY(-1);
+    background: linear-gradient(180deg, rgba(255,255,255,0.06), rgba(255,255,255,0));
+    filter: blur(6px);
+    opacity: 0.18;
+    border-radius: 999px;
+    pointer-events: none;
+    mask-image: linear-gradient(to bottom, rgba(0,0,0,0.6), rgba(0,0,0,0));
+}
+
+.minimal-nav a {
+    color: var(--muted);
+    text-decoration: none;
+    padding: 8px 12px;
+    border-radius: 10px;
+    font-weight: 600;
+    font-size: 0.98rem;
+    transition: color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+}
+.minimal-nav a:hover {
+    color: var(--accent);
+    transform: translateY(-3px);
+    background: rgba(255,255,255,0.02);
+}
+
+/* Logo left, compact */
+.minimal-logo {
+    display: flex;
+    align-items: center;
+    gap: 0.6rem;
+    color: #eaf6ff;
+}
+
+/* Adjust hamburger on right */
+.minimal-hamburger {
+    background: transparent;
+    border: 1px solid rgba(255,255,255,0.04);
+    padding: 8px;
+    border-radius: 10px;
+    display: flex;
+    gap: 6px;
+}
+.minimal-hamburger span { background: var(--muted); }
+
+/* Improve buttons look */
+.minimal-btn {
+    border-radius: 12px;
+    padding: 8px 16px;
+    background: linear-gradient(90deg, rgba(91,184,255,0.18), rgba(67,214,117,0.06));
+    color: #eaf6ff;
+    border: 1px solid rgba(255,255,255,0.04);
+    box-shadow: 0 6px 20px rgba(11,18,32,0.6);
+}
+.minimal-btn:hover { transform: translateY(-3px) scale(1.02); }
+
+/* Section cards - darker glass look */
+.minimal-section {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+    border: 1px solid rgba(255,255,255,0.03);
+    color: #dfefff;
+}
+
+/* Typography tweaks */
+.minimal-h2 { letter-spacing: 0.6px; color: #dff6ff; }
+.minimal-title { color: #fff; text-shadow: 0 6px 20px rgba(11,18,32,0.6); }
+.minimal-p, .subtitle { color: var(--muted); }
+
+/* Smooth reveal for major elements */
+.hero-content, .minimal-container, .proyectos-grid, .galeria-grid, .exp-cards, .testimonios-grid {
+    opacity: 0;
+    transform: translateY(8px) scale(0.995);
+    animation: revealUp 0.7s ease forwards;
+}
+@keyframes revealUp { to { opacity: 1; transform: translateY(0) scale(1); } }
+
+/* Mobile tweaks: nav becomes centered at top and scroll-friendly */
+@media (max-width: 900px) {
+    .minimal-nav { position: static; transform: none; margin: 10px auto; }
+    .minimal-header .header-container { justify-content: space-between; }
+    .minimal-nav::after { display: none; }
+}
+
+/* Reduce heavy animations for low-power devices */
+@media (prefers-reduced-motion: reduce) {
+    .minimal-nav, .minimal-btn, .hero-content { transition: none !important; animation: none !important; }
+}
+
+/* ------------------------
+     Final fixes: hamburger, contrast and performance
+     Placed last to reliably override previous styles
+     ------------------------ */
+
+/* Subtle dark background for minimal mode to reduce harsh contrast */
+body.minimal-bg {
+    background: linear-gradient(180deg, #08101a, #0f1724) !important;
+    color: #dbeeff !important;
+}
+
+/* Disable expensive visual layers that cause lag on low-end devices */
+.particles-bg, .animated-gradient-bg { display: none !important; opacity: 0 !important; }
+
+/* Reduce glow/shadow intensity globally for better performance and contrast */
+.minimal-btn, .btn { box-shadow: 0 4px 12px rgba(0,0,0,0.45) !important; }
+.minimal-section, .proyecto-card, .galeria-card, .exp-card, .testimonio-card { box-shadow: 0 6px 18px rgba(0,0,0,0.45) !important; }
+
+/* Ensure hamburger is visible on small screens and works with body.nav-open toggle */
+.minimal-hamburger { display: none; }
+@media (max-width: 900px) {
+    .minimal-hamburger { display: flex; }
+}
+
+/* Mobile nav: hidden by default, shown when body.nav-open present (toggled by JS) */
+.minimal-nav {
+    opacity: 1; /* keep pill for desktop */
+}
+@media (max-width: 900px) {
+    .minimal-nav {
+        position: fixed;
+        top: 70px;
+        right: 18px;
+        left: 18px;
+        display: none;
+        flex-direction: column;
+        gap: 10px;
+        padding: 12px 14px;
+        border-radius: 12px;
+        background: rgba(12,16,24,0.92);
+        border: 1px solid rgba(255,255,255,0.03);
+        box-shadow: 0 12px 40px rgba(0,0,0,0.6);
+        z-index: 200;
+    }
+    body.nav-open .minimal-nav, .minimal-nav.open { display: flex; }
+    .minimal-nav a { color: #dbeeff !important; }
+}
+
+/* Improve contrast on links and hover states */
+.minimal-nav a, .minimal-nav a:visited { color: #9fbfe8; }
+.minimal-nav a:hover, .minimal-nav a:focus { color: var(--accent, #5bb8ff); background: rgba(255,255,255,0.02); }
+
+/* Make sure logo and hamburger don't overlap nav pill on small screens */
+.header-container { align-items: center; }
+
+/* Reduce heavy animations for cards and avatars */
+.avatar, .avatar-pop, .img-pop, .card-3d { animation: none !important; transition: transform 0.18s ease, opacity 0.18s ease !important; }
+
+/* Disable continuous setInterval effects that can cause CPU load on low-end devices */
+/* Provide visual fallback via CSS (no JS intervals) */
+.status { box-shadow: 0 4px 12px rgba(67,214,117,0.08); }
+
+/* Ensure ripple doesn't overflow and is performant */
+.ripple { width: 80px; height: 80px; opacity: 0.9; }
+
+/* Accessibility: focus ring for keyboard users */
+a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid rgba(91,184,255,0.14); outline-offset: 3px; }
+
+/* Slightly larger tap targets on mobile */
+@media (max-width: 700px) {
+    .minimal-nav a { padding: 12px 10px; font-size: 1.05rem; }
+    .minimal-btn { padding: 10px 18px; }
+}
+
+/* ==========================
+   Focused coherence overrides
+   - Normalize section backgrounds to improve contrast
+   - Ensure hero, proyectos, galeria, contacto and footer are readable
+   - Keep changes minimal and easy to tweak
+   ========================== */
+
+/* Make main container provide a soft pad and consistent background */
+.minimal-main {
+    padding-top: 8vh; /* avoid header overlap on small screens */
+}
+
+/* Sections use a slightly lighter glass card so text is clear */
+.minimal-section {
+    background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
+    border: 1px solid rgba(255,255,255,0.035) !important;
+    color: #dfefff !important;
+}
+
+/* Hero gets a slightly darker surface so title stands out */
+.minimal-hero {
+    background: linear-gradient(180deg, rgba(255,255,255,0.01), rgba(0,0,0,0.02));
+    padding: 56px 0 36px 0;
+}
+.minimal-title { font-size: 2.4rem; }
+.minimal-subtitle { color: #a9c7e8; }
+
+/* Make proyectos/galeria/contacto sections less saturated and readable */
+.proyectos, .galeria, .contacto, .tecnologias, .experiencia {
+    background: transparent !important;
+}
+.proyectos-grid .proyecto-card, .galeria-grid .galeria-card, .exp-cards .exp-card {
+    background: rgba(255,255,255,0.02) !important;
+    color: #e6f0ff !important;
+    border: 1px solid rgba(255,255,255,0.03) !important;
+}
+
+/* Improve contrast on cards' headings and paragraphs */
+.minimal-h3, .minimal-h4 { color: #eaf6ff !important; }
+.minimal-p { color: #c6dff6 !important; }
+
+/* Footer darker but legible */
+footer, .minimal-footer {
+    background: linear-gradient(180deg, #071018, #0b131b) !important;
+    color: #9fbfe8 !important;
+    border-top: 1px solid rgba(255,255,255,0.02) !important;
+}
+
+/* Ensure form inputs are readable on dark background */
+.soporte-form input, .soporte-form textarea {
+    background: rgba(255,255,255,0.03) !important;
+    color: #e7f3ff !important;
+    border: 1px solid rgba(255,255,255,0.03) !important;
+}
+
+/* Contact form: ensure high-contrast editable text (white background, black text)
+   so users type against a white field for maximum readability */
+#soporte-form input, #soporte-form textarea, .soporte-form input, .soporte-form textarea {
+    background: #ffffff !important;
+    color: #111111 !important;
+    border: 1px solid rgba(0,0,0,0.08) !important;
+}
+#soporte-form input::placeholder, #soporte-form textarea::placeholder,
+.soporte-form input::placeholder, .soporte-form textarea::placeholder {
+    color: #6b7280 !important;
+    opacity: 1 !important;
+}
+#soporte-form input:focus, #soporte-form textarea:focus, .soporte-form input:focus, .soporte-form textarea:focus {
+    border-color: var(--accent, #5bb8ff) !important;
+    box-shadow: 0 6px 18px rgba(91,184,255,0.06) !important;
+    outline: none !important;
+    color: #111111 !important;
+    background: #ffffff !important;
+}
+
+
+/* Force nav visibility on mobile and ensure text contrast */
+@media (max-width: 900px) {
+    body.nav-open .minimal-nav, .minimal-nav.open { display: flex !important; }
+    .minimal-nav a { color: #eaf6ff !important; }
+}
+
+/* Small typography/tap-target tuning */
+.minimal-nav a { font-size: 1rem !important; }
+.minimal-btn { font-size: 0.98rem !important; }
+
+/* Minor spacing for testimonial cards */
+.testimonio-card, .minimal-testimonio-card { padding: 0.9rem 1rem !important; }
+
+/* Remove any residual full-screen gradients for readability */
+.animated-gradient-bg, .particles-bg { display: none !important; }
+
+/* Click-to-load YouTube placeholder (prevents auto-loading external ad/tracking scripts) */
+.youtube-lite {
+    position: relative;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(180deg, rgba(0,0,0,0.35), rgba(0,0,0,0.6));
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+    border-radius: 10px;
+}
+.youtube-lite::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image: linear-gradient(90deg, rgba(0,0,0,0.12), rgba(255,255,255,0.02));
+    border-radius: 10px;
+}
+.youtube-lite .youtube-play {
+    position: relative;
+    z-index: 2;
+    background: rgba(255,255,255,0.92);
+    color: #111;
+    border: none;
+    font-size: 2.6rem;
+    width: 84px;
+    height: 84px;
+    border-radius: 999px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: 0 6px 20px rgba(0,0,0,0.45);
+}
+.youtube-lite:focus { outline: 3px solid rgba(91,184,255,0.14); }
+
+

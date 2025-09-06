@@ -1,16 +1,36 @@
 // Animaciones y detalles extra para el portafolio
 
 document.addEventListener('DOMContentLoaded', () => {
-    // --- Menú hamburguesa ---
+    // --- Menú hamburguesa (mejorado) ---
     const hamburger = document.getElementById('hamburger');
     const mainNav = document.getElementById('main-nav');
-    hamburger?.addEventListener('click', () => {
-        mainNav.classList.toggle('open');
+    const bodyEl = document.body;
+    function closeNav() {
+        bodyEl.classList.remove('nav-open');
+        mainNav?.classList.remove('open');
+        hamburger?.setAttribute('aria-expanded', 'false');
+    }
+    function openNav() {
+        bodyEl.classList.add('nav-open');
+        mainNav?.classList.add('open');
+        hamburger?.setAttribute('aria-expanded', 'true');
+    }
+    hamburger?.addEventListener('click', (e) => {
+        e.stopPropagation();
+        if (bodyEl.classList.contains('nav-open')) closeNav(); else openNav();
     });
+    // Close when clicking any link
     document.querySelectorAll('#main-nav a').forEach(link => {
-        link.addEventListener('click', () => {
-            mainNav.classList.remove('open');
-        });
+        link.addEventListener('click', () => closeNav());
+    });
+    // Close when clicking outside nav
+    document.addEventListener('click', (e) => {
+        if (!bodyEl.classList.contains('nav-open')) return;
+        if (!mainNav.contains(e.target) && !hamburger.contains(e.target)) closeNav();
+    });
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && bodyEl.classList.contains('nav-open')) closeNav();
     });
 
     // --- Scroll suave al navegar por el menú ---
@@ -28,20 +48,36 @@ document.addEventListener('DOMContentLoaded', () => {
         });
     });
 
-    // --- Estadísticas animadas ---
+    // --- Estadísticas animadas (suaves, respetando prefers-reduced-motion) ---
+    const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const statNumbers = document.querySelectorAll('.stat-number');
-    statNumbers.forEach(num => {
-        const target = +num.dataset.target;
-        let current = 0;
-        const increment = Math.ceil(target / 60);
-        function updateStat() {
-            current += increment;
-            if (current > target) current = target;
-            num.textContent = current;
-            if (current < target) requestAnimationFrame(updateStat);
-        }
-        updateStat();
-    });
+    if (!prefersReduced) {
+        statNumbers.forEach(num => {
+            const target = parseInt((num.dataset.target || '0').toString().replace(/\D/g, ''), 10) || 0;
+            let current = 0;
+            const steps = 40;
+            const increment = Math.max(1, Math.ceil(target / steps));
+            function updateStat() {
+                current += increment;
+                if (current > target) current = target;
+                num.textContent = current;
+                if (current < target) requestAnimationFrame(updateStat);
+            }
+            // start when in viewport to avoid work offscreen
+            const obs = new IntersectionObserver(entries => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        updateStat();
+                        obs.disconnect();
+                    }
+                });
+            }, { threshold: 0.3 });
+            obs.observe(num);
+        });
+    } else {
+        // Show targets immediately if reduced motion
+        statNumbers.forEach(num => num.textContent = num.dataset.target);
+    }
 
     // --- Microinteracciones: copiar email/discord ---
     document.querySelectorAll('.copy-btn').forEach(btn => {
@@ -71,7 +107,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }, 1200);
         });
     }
-    // Animación de entrada para las secciones
+    // Animación de entrada para las secciones (optimized)
     const observer = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
             if (entry.isIntersecting) {
@@ -90,98 +126,79 @@ document.addEventListener('DOMContentLoaded', () => {
         observer.observe(section);
     });
 
-    // --- Animación de entrada y flotante para testimonios ---
+    // --- Animación de entrada para testimonios (ligera, y solo si no reduce motion y ancho ok) ---
     const testimonioCards = document.querySelectorAll('.testimonio-card');
     if (testimonioCards.length) {
+        const enableFloating = !prefersReduced && window.innerWidth > 900;
         const obsTestimonios = new IntersectionObserver((entries) => {
             entries.forEach(entry => {
                 if (entry.isIntersecting) {
                     entry.target.classList.add('show');
                     obsTestimonios.unobserve(entry.target);
-                    // Animación flotante en el texto del testimonio
-                    const frase = entry.target.querySelector('.testimonio-frase');
-                    if (frase) {
-                        // Movimiento flotante suave y continuo
-                        const randomX = 8 + Math.random() * 8; // px
-                        const randomY = 8 + Math.random() * 8; // px
-                        const randomDur = 3200 + Math.random() * 1200; // ms
-                        frase.animate([
-                            { transform: 'translate(0px, 0px)' },
-                            { transform: `translate(${randomX}px, -${randomY}px)` },
-                            { transform: `translate(-${randomX}px, ${randomY}px)` },
-                            { transform: 'translate(0px, 0px)' }
-                        ], {
-                            duration: randomDur,
-                            iterations: Infinity,
-                            direction: 'alternate',
-                            easing: 'ease-in-out',
-                            delay: Math.random() * 1000
-                        });
+                    if (enableFloating) {
+                        const frase = entry.target.querySelector('.testimonio-frase');
+                        if (frase) {
+                            // Use CSS transform animations instead of Web Animations API for performance
+                            frase.style.transition = 'transform 3s ease-in-out';
+                        }
                     }
                 }
             });
         }, { threshold: 0.15 });
-        testimonioCards.forEach(card => {
-            obsTestimonios.observe(card);
-        });
+        testimonioCards.forEach(card => obsTestimonios.observe(card));
     }
 
-    // Animación de saludo (👋)
+    // Animación de saludo (👋) — ligera y opcional
     const wave = document.querySelector('.wave');
-    if (wave) {
+    if (wave && !prefersReduced && window.innerWidth > 700) {
         wave.animate([
             { transform: 'rotate(0deg)' },
-            { transform: 'rotate(20deg)' },
-            { transform: 'rotate(-10deg)' },
-            { transform: 'rotate(20deg)' },
+            { transform: 'rotate(16deg)' },
+            { transform: 'rotate(-8deg)' },
+            { transform: 'rotate(16deg)' },
             { transform: 'rotate(0deg)' }
-        ], {
-            duration: 1200,
-            iterations: Infinity,
-            easing: 'ease-in-out',
-            delay: 500
-        });
-        // Efecto de brillo en el emoji
-        setInterval(() => {
-            wave.style.filter = 'drop-shadow(0 0 8px #ffe066)';
-            setTimeout(() => wave.style.filter = '', 400);
-        }, 3000);
+        ], { duration: 1400, iterations: Infinity, easing: 'ease-in-out', delay: 500 });
     }
 
-    // Botones con efecto ripple
-    document.querySelectorAll('.btn').forEach(btn => {
-        btn.addEventListener('click', function (e) {
-            const circle = document.createElement('span');
-            circle.className = 'ripple';
-            circle.style.left = `${e.offsetX}px`;
-            circle.style.top = `${e.offsetY}px`;
-            this.appendChild(circle);
-            setTimeout(() => circle.remove(), 600);
+    // Botones con efecto ripple (ligero)
+    if (!prefersReduced) {
+        document.querySelectorAll('.btn').forEach(btn => {
+            btn.addEventListener('click', function (e) {
+                const circle = document.createElement('span');
+                circle.className = 'ripple';
+                const rect = this.getBoundingClientRect();
+                circle.style.left = `${e.clientX - rect.left}px`;
+                circle.style.top = `${e.clientY - rect.top}px`;
+                this.appendChild(circle);
+                setTimeout(() => circle.remove(), 700);
+            });
         });
-    });
+    }
 
-    // Animación flotante para los iconos de las tarjetas
-    document.querySelectorAll('.proyecto-icon, .galeria-icon, .exp-icon').forEach(icon => {
-        icon.animate([
-            { transform: 'translateY(0px)' },
-            { transform: 'translateY(-8px)' },
-            { transform: 'translateY(0px)' }
-        ], {
-            duration: 2200 + Math.random() * 800,
-            iterations: Infinity,
-            direction: 'alternate',
-            easing: 'ease-in-out',
-            delay: Math.random() * 1000
+    // Animación flotante para iconos: solo si dispositivo potente
+    if (!prefersReduced && window.innerWidth > 900) {
+        document.querySelectorAll('.proyecto-icon, .galeria-icon, .exp-icon').forEach(icon => {
+            icon.animate([
+                { transform: 'translateY(0px)' },
+                { transform: 'translateY(-6px)' },
+                { transform: 'translateY(0px)' }
+            ], {
+                duration: 2400 + Math.random() * 800,
+                iterations: Infinity,
+                direction: 'alternate',
+                easing: 'ease-in-out',
+                delay: Math.random() * 800
+            });
         });
-    });
+    }
 
-    // Efecto parpadeo en el status
+    // Efecto parpadeo en el status (reducido) 
     const status = document.querySelector('.status');
-    if (status) {
+    if (status && !prefersReduced && window.innerWidth > 800) {
         setInterval(() => {
             status.style.filter = 'drop-shadow(0 0 8px #3ee9a6)';
             setTimeout(() => status.style.filter = '', 300);
-        }, 2000);
+        }, 3000);
     }
 
     // Animación de entrada para el avatar
