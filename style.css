@@ -1706,6 +1706,24 @@ a:focus, button:focus, input:focus, textarea:focus { outline: 3px solid rgba(91,
     padding-top: 8vh; /* avoid header overlap on small screens */
 }
 
+/* Prevent navbar pill from overlapping logo/name */
+.minimal-header .header-container { padding-left: 2vw; padding-right: 2vw; }
+.minimal-logo { position: relative; z-index: 50; }
+.minimal-nav {
+    max-width: calc(100% - 220px); /* reserve space for logo and actions */
+    box-sizing: border-box;
+}
+.minimal-nav a { white-space: nowrap; }
+
+@media (min-width: 1400px) {
+    .minimal-nav { max-width: calc(100% - 320px); }
+}
+
+@media (max-width: 1100px) {
+    /* on narrow desktops, reduce nav pill size so it doesn't cover logo */
+    .minimal-nav { left: 50%; transform: translateX(-50%); padding: 6px 10px; }
+}
+
 /* Sections use a slightly lighter glass card so text is clear */
 .minimal-section {
     background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01)) !important;
