@@ -354,33 +354,102 @@
 
 </body>
     <script>
-    // Inject YouTube nocookie iframe only after user interaction to prevent ad/tracking preloads
-    ;(function(){
-        function loadYoutube(el){
-            if (!el || el.dataset.loaded) return;
-            var src = el.dataset.src || ('https://www.youtube-nocookie.com/embed/' + el.dataset.videoId + '?rel=0&modestbranding=1');
-            var iframe = document.createElement('iframe');
-            iframe.setAttribute('src', src);
-            iframe.setAttribute('title', 'Video');
-            iframe.setAttribute('frameborder', '0');
-            iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-            iframe.setAttribute('allowfullscreen', '');
-            iframe.style.width = '100%';
-            iframe.style.height = '100%';
-            el.dataset.loaded = '1';
-            // replace placeholder with iframe
-            el.parentNode.replaceChild(iframe, el);
-        }
-        document.addEventListener('click', function(e){
-            var t = e.target.closest('.youtube-lite');
-            if (t) { loadYoutube(t); }
-        });
-        document.addEventListener('keydown', function(e){
-            if (e.key === 'Enter' || e.key === ' ') {
-                var t = document.activeElement;
-                if (t && t.classList && t.classList.contains('youtube-lite')) { e.preventDefault(); loadYoutube(t); }
+        // Inject YouTube nocookie iframe only after user interaction to prevent ad/tracking preloads
+        ;(function(){
+                function loadYoutube(el){
+                        if (!el || el.dataset.loaded) return;
+                        var src = el.dataset.src || ('https://www.youtube-nocookie.com/embed/' + el.dataset.videoId + '?rel=0&modestbranding=1');
+                        var iframe = document.createElement('iframe');
+                        iframe.setAttribute('src', src);
+                        iframe.setAttribute('title', 'Video');
+                        iframe.setAttribute('frameborder', '0');
+                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                        iframe.setAttribute('allowfullscreen', '');
+                        iframe.style.width = '100%';
+                        iframe.style.height = '100%';
+                        el.dataset.loaded = '1';
+                        // replace placeholder with iframe
+                        el.parentNode.replaceChild(iframe, el);
+                }
+                document.addEventListener('click', function(e){
+                        var t = e.target.closest('.youtube-lite');
+                        if (t) { loadYoutube(t); }
+                });
+                document.addEventListener('keydown', function(e){
+                        if (e.key === 'Enter' || e.key === ' ') {
+                                var t = document.activeElement;
+                                if (t && t.classList && t.classList.contains('youtube-lite')) { e.preventDefault(); loadYoutube(t); }
+                        }
+                });
+        })();
+
+        // =========================
+        // Verificación segura de contraseña para cambiar estado
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            var statusForm = document.getElementById('status-form');
+            var statusPassword = document.getElementById('status-password');
+            var statusFeedback = document.getElementById('status-feedback');
+            var portfolioStatus = document.getElementById('portfolio-status');
+            var footerStatus = document.getElementById('footer-status');
+            if (statusForm && statusPassword && statusFeedback) {
+                statusForm.addEventListener('submit', async function(e) {
+                    e.preventDefault();
+                    var pass = statusPassword.value.trim();
+                    statusFeedback.textContent = '';
+                    statusFeedback.className = 'form-feedback minimal-form-feedback';
+                    if (!pass) return;
+                    try {
+                        const res = await fetch('/api/portfolio-status', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: JSON.stringify({ password: pass })
+                        });
+                        const data = await res.json();
+                        if (data.success) {
+                            statusFeedback.textContent = '¡Contraseña correcta! Estado cambiado.';
+                            statusFeedback.className = 'form-feedback minimal-form-feedback success';
+                            // Actualizar estado visual
+                            if (portfolioStatus) {
+                                portfolioStatus.textContent = data.online ? 'Online' : 'Offline';
+                                portfolioStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                            }
+                            if (footerStatus) {
+                                footerStatus.textContent = data.online ? 'Online' : 'Offline';
+                                footerStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                            }
+                            setTimeout(function() {
+                                statusFeedback.textContent = '';
+                                statusFeedback.className = 'form-feedback minimal-form-feedback';
+                                statusPassword.value = '';
+                            }, 1200);
+                        } else {
+                            statusFeedback.textContent = data.message || 'Contraseña incorrecta.';
+                            statusFeedback.className = 'form-feedback minimal-form-feedback error';
+                            setTimeout(function() {
+                                statusFeedback.textContent = '';
+                                statusFeedback.className = 'form-feedback minimal-form-feedback';
+                            }, 1200);
+                            statusPassword.value = '';
+                            statusPassword.focus();
+                        }
+                    } catch (err) {
+                        statusFeedback.textContent = 'Error de conexión.';
+                        statusFeedback.className = 'form-feedback minimal-form-feedback error';
+                    }
+                });
             }
+            // Al cargar, obtener estado actual
+            fetch('/api/portfolio-status').then(r=>r.json()).then(data=>{
+                if (portfolioStatus) {
+                    portfolioStatus.textContent = data.online ? 'Online' : 'Offline';
+                    portfolioStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                }
+                if (footerStatus) {
+                    footerStatus.textContent = data.online ? 'Online' : 'Offline';
+                    footerStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                }
+            });
         });
-    })();
     </script>
 </html>
