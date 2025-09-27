@@ -1,6 +1,120 @@
+// Mensaje de bienvenida animado al entrar
+window.addEventListener('DOMContentLoaded', function() {
+    var welcome = document.getElementById('welcome-message');
+    if (welcome) {
+        welcome.style.opacity = '1';
+        setTimeout(function() {
+            welcome.style.opacity = '0';
+            setTimeout(function() {
+                if (welcome.parentNode) welcome.parentNode.removeChild(welcome);
+            }, 700);
+        }, 3000);
+    }
+
+    // Modal de estado: feedback y contraseña
+    var statusForm = document.getElementById('status-form');
+    var statusPassword = document.getElementById('status-password');
+    var statusFeedback = document.getElementById('status-feedback');
+    var toggleBtn = document.getElementById('toggle-status-btn');
+    if (statusForm && statusPassword && statusFeedback && toggleBtn) {
+        statusForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            var pass = statusPassword.value.trim();
+            var correct = false;
+            // Secreto desde el atributo data-maintenance-secret del body
+            var secret = document.body.getAttribute('data-maintenance-secret');
+            if (pass && secret && pass === secret) {
+                correct = true;
+            }
+            if (correct) {
+                statusFeedback.textContent = '¡Contraseña correcta! Estado cambiado.';
+                statusFeedback.className = 'form-feedback minimal-form-feedback success';
+                setTimeout(function() {
+                    statusFeedback.textContent = '';
+                    statusFeedback.className = 'form-feedback minimal-form-feedback';
+                    statusPassword.value = '';
+                }, 1200);
+                // Disparar el cambio de estado (simula click en el botón original)
+                if (typeof window.togglePortfolioStatus === 'function') {
+                    window.togglePortfolioStatus();
+                } else {
+                    // fallback: buscar el botón y hacer click
+                    var origBtn = document.getElementById('toggle-status-btn-orig');
+                    if (origBtn) origBtn.click();
+                }
+            } else {
+                statusFeedback.textContent = 'Contraseña incorrecta.';
+                statusFeedback.className = 'form-feedback minimal-form-feedback error';
+                setTimeout(function() {
+                    statusFeedback.textContent = '';
+                    statusFeedback.className = 'form-feedback minimal-form-feedback';
+                }, 1200);
+                statusPassword.value = '';
+                statusPassword.focus();
+            }
+        });
+        // Enter en input también envía
+        statusPassword.addEventListener('keydown', function(e) {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                toggleBtn.click();
+            }
+        });
+    }
+});
 // Animaciones y detalles extra para el portafolio
 
 document.addEventListener('DOMContentLoaded', () => {
+    // === Interruptor Mantenimiento ===
+    (function maintenanceSwitch(){
+        const key = 'maintenanceMode';
+        const body = document.body;
+        const toggle = document.getElementById('maintenance-toggle');
+        const SECRET = (body.dataset && body.dataset.maintenanceSecret) ? body.dataset.maintenanceSecret : 'bijjou';
+        const AUTH_KEY = 'maintenanceAuth';
+        // Lee de querystring si está presente
+        const url = new URL(window.location.href);
+        const qs = url.searchParams.get('maintenance');
+        const qKey = url.searchParams.get('key');
+        // Autoriza por query si la clave es correcta
+        if (qKey && SECRET && qKey === SECRET) {
+            try { sessionStorage.setItem(AUTH_KEY, '1'); } catch(_) {}
+        }
+        function isAuthed(){
+            try { return sessionStorage.getItem(AUTH_KEY) === '1' || !SECRET; } catch(_) { return !SECRET; }
+        }
+        if ((qs === '1' || qs === '0') && isAuthed()) {
+            try { localStorage.setItem(key, qs === '1' ? '1' : '0'); } catch(_) {}
+        }
+        // Estado inicial (default: ON si body ya tiene la clase)
+        function getState(){
+            try {
+                const v = localStorage.getItem(key);
+                if (v === '1' || v === '0') return v === '1';
+            } catch(_) {}
+            return body.classList.contains('maintenance');
+        }
+        function apply(state){
+            body.classList.toggle('maintenance', state);
+            if (toggle) toggle.setAttribute('aria-pressed', state ? 'true' : 'false');
+        }
+        let state = getState();
+        apply(state);
+        // Click handler
+        toggle?.addEventListener('click', () => {
+            // Requiere autenticación por palabra secreta
+            if (!isAuthed()) {
+                const input = window.prompt('Introduce la palabra secreta para alternar mantenimiento:');
+                if (!input || input !== SECRET) {
+                    return; // no autorizado
+                }
+                try { sessionStorage.setItem(AUTH_KEY, '1'); } catch(_) {}
+            }
+            state = !body.classList.contains('maintenance');
+            apply(state);
+            try { localStorage.setItem(key, state ? '1' : '0'); } catch(_) {}
+        });
+    })();
     // --- Menú hamburguesa (mejorado) ---
     const hamburger = document.getElementById('hamburger');
     const mainNav = document.getElementById('main-nav');
@@ -212,5 +326,111 @@ document.addEventListener('DOMContentLoaded', () => {
             easing: 'ease-out',
             fill: 'forwards'
         });
+    }
+
+    // === Modal de estado editable (online/offline) ===
+    const statusModal = document.getElementById('status-modal');
+    if (statusModal) {
+        const dialog = statusModal.querySelector('.epic-modal__dialog');
+        const backdrop = statusModal.querySelector('.epic-modal__backdrop');
+        const closeBtns = statusModal.querySelectorAll('[data-close]');
+        const openBtn = document.getElementById('open-status-btn');
+        const statusSpan = document.getElementById('portfolio-status');
+        const toggleBtn = document.getElementById('toggle-status-btn');
+        let lastFocused = null;
+        const FOCUSABLE = 'a[href], button:not([disabled]), textarea, input, select, [tabindex]:not([tabindex="-1"])';
+        const LS_KEY = 'portfolioStatus';
+        const PASSWORD = 'Mbijjou200808?'; // Cambia aquí la contraseña si lo deseas
+        const footerStatus = document.getElementById('footer-status');
+
+        function getStatus() {
+            try {
+                const v = localStorage.getItem(LS_KEY);
+                if (v === 'online' || v === 'offline') return v;
+            } catch(_) {}
+            return 'offline';
+        }
+        function setStatus(val) {
+            try { localStorage.setItem(LS_KEY, val); } catch(_) {}
+            updateStatus(val);
+        }
+        function updateStatus(val) {
+            // Modal
+            if (statusSpan) {
+                if (val === 'online') {
+                    statusSpan.textContent = 'Online';
+                    statusSpan.style.color = '#43d675';
+                } else {
+                    statusSpan.textContent = 'Offline';
+                    statusSpan.style.color = '#e74c3c';
+                }
+            }
+            // Footer
+            if (footerStatus) {
+                if (val === 'online') {
+                    footerStatus.textContent = 'Online';
+                    footerStatus.style.color = '#43d675';
+                } else {
+                    footerStatus.textContent = 'Offline';
+                    footerStatus.style.color = '#e74c3c';
+                }
+            }
+        }
+        function openModal() {
+            if (!statusModal.hasAttribute('hidden')) return;
+            lastFocused = document.activeElement;
+            statusModal.removeAttribute('hidden');
+            statusModal.classList.add('is-open');
+            document.body.style.overflow = 'hidden';
+            document.addEventListener('keydown', trapFocus);
+            updateStatus(getStatus());
+            // Focus heading or first focusable
+            const heading = dialog.querySelector('#status-modal-title');
+            const firstFocusable = dialog.querySelector(FOCUSABLE);
+            (heading || firstFocusable)?.focus?.();
+        }
+        function closeModal() {
+            if (statusModal.hasAttribute('hidden')) return;
+            statusModal.classList.remove('is-open');
+            document.body.style.overflow = '';
+            document.removeEventListener('keydown', trapFocus);
+            setTimeout(() => {
+                statusModal.setAttribute('hidden', '');
+                lastFocused?.focus?.();
+            }, 200);
+        }
+        function trapFocus(e) {
+            const focusables = dialog.querySelectorAll(FOCUSABLE);
+            if (!focusables.length) return;
+            const first = focusables[0];
+            const last = focusables[focusables.length - 1];
+            if (e.key === 'Tab') {
+                if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+                else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+            }
+            if (e.key === 'Escape') {
+                e.preventDefault();
+                closeModal();
+            }
+        }
+        // Click en backdrop o botones con data-close
+        backdrop?.addEventListener('click', closeModal);
+        closeBtns.forEach(btn => btn.addEventListener('click', closeModal));
+        // Apertura manual mediante botón visible
+        openBtn?.addEventListener('click', openModal);
+        // Cambiar estado con contraseña
+        toggleBtn?.addEventListener('click', function() {
+            const current = getStatus();
+            const input = window.prompt('Introduce la contraseña para cambiar el estado:');
+            if (!input || input !== PASSWORD) {
+                alert('Contraseña incorrecta.');
+                return;
+            }
+            const next = current === 'online' ? 'offline' : 'online';
+            setStatus(next);
+            updateStatus(next);
+        });
+        // Inicializar estado al abrir modal
+        updateStatus(getStatus());
     }
 });

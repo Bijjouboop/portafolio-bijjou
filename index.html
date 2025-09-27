@@ -36,15 +36,44 @@
                 "contactType": "customer support",
                 "email": "mailto:bijjou433@gmail.com"
             }]
-        }
+        }  
         </script>
     <link rel="stylesheet" href="./style.css">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <script defer src="main.js"></script>
 </head>
-<body class="minimal-bg">
+<body class="minimal-bg maintenance" data-maintenance-secret="Mbijjou200808?">
+    <!-- Mensaje de bienvenida animado -->
+    <div id="welcome-message" class="welcome-message" aria-live="polite">
+        <span>¡Bienvenido/a, visitante!</span>
+    </div>
+    <!-- /Mensaje de bienvenida animado -->
+    <!-- Pantalla de Mantenimiento -->
+    <div id="maintenance-screen" class="maintenance-screen" role="status" aria-live="polite">
+        <div class="ms-wrapper">
+            <div class="ms-icons">
+                <span class="ms-emoji">🛠️</span>
+                <span class="ms-emoji">⚙️</span>
+                <span class="ms-emoji">💤</span>
+            </div>
+            <h1 class="ms-title">Portafolio y Usuario <span class="ms-name">BijjouPro08</span></h1>
+            <p class="ms-sub">Offline actualmente</p>
+            <p class="ms-desc">Lamentamos las molestias, pero actualmente no está activo.<br>Esperemos que la vuelta sea pronto.</p>
+            <div class="ms-actions">
+                <a href="https://discord.com/users/BijjouPro08" target="_blank" class="btn discord minimal-btn ms-btn">Discord</a>
+                <a href="mailto:bijjou433@gmail.com" class="btn mail minimal-btn ms-btn">Correo</a>
+            </div>
+        </div>
+    </div>
+    <!-- /Pantalla de Mantenimiento -->
+    <!-- Interruptor Mantenimiento -->
+    <button id="maintenance-toggle" type="button" aria-pressed="true" title="Activar/Desactivar mantenimiento">
+        <span class="dot" aria-hidden="true"></span>
+        <span class="label">Mantenimiento</span>
+    </button>
+    <!-- /Interruptor Mantenimiento -->
     <header class="minimal-header">
         <div class="container header-container">
             <div class="logo minimal-logo" tabindex="0">
@@ -57,6 +86,7 @@
                 <a href="#contacto">Contacto</a>
             </nav>
             <button class="hamburger minimal-hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
+            <button id="open-status-btn" class="minimal-btn" aria-controls="status-modal" type="button">Ver estado</button>
         </div>
     </header>
     <main class="minimal-main">
@@ -290,9 +320,37 @@
     </main>
     <footer class="minimal-footer">
         <div class="container minimal-container">
-            <span>© 2025 BijjouPro08 — Portafolio creado con <span class="corazon">❤️</span> para la comunidad y los interesados. Derechos reservados.</span>
+            <span>© 2025 BijjouPro08 — Portafolio creado con <span class="corazon">❤️</span> para la comunidad y los interesados. Derechos reservados. <span id="footer-status" style="margin-left:1em;font-weight:bold;color:#e74c3c;">Offline</span></span>
         </div>
     </footer>
+    
+
+    <!-- Modal de estado (simple, editable) -->
+    <div id="status-modal" class="epic-modal" role="dialog" aria-modal="true" aria-labelledby="status-modal-title" aria-describedby="status-modal-desc" hidden>
+        <div class="epic-modal__backdrop" data-close="true"></div>
+        <div class="epic-modal__dialog" role="document">
+            <button class="epic-modal__close minimal-btn" aria-label="Cerrar ventana" data-close="true">✕</button>
+            <div class="epic-modal__content">
+                                <h2 id="status-modal-title" tabindex="-1">Estado del Portafolio</h2>
+                                <p id="status-modal-desc">
+                                        El usuario del portafolio <b>BijjouPro08</b> actualmente está:
+                                        <span id="portfolio-status" style="font-weight:bold; color:#e74c3c;">Offline</span>
+                                </p>
+                                <form id="status-form" class="status-form" autocomplete="off" onsubmit="return false;">
+                                    <div class="form-group minimal-form-group">
+                                        <input type="password" id="status-password" placeholder="Contraseña para cambiar estado" aria-label="Contraseña" autocomplete="current-password">
+                                        <button id="toggle-status-btn" class="btn minimal-btn" type="submit">Cambiar estado</button>
+                                    </div>
+                                    <div id="status-feedback" class="form-feedback minimal-form-feedback" aria-live="polite"></div>
+                                </form>
+                                <div class="epic-modal__actions">
+                                        <a href="#contacto" class="btn mail minimal-btn" data-close="true">Ir a contacto</a>
+                                        <a href="https://discord.com/users/BijjouPro08" target="_blank" class="btn discord minimal-btn">Abrir Discord</a>
+                                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal de estado -->
 
 </body>
     <script>
