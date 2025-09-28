@@ -23,8 +23,30 @@ if (!dbExists) {
 }
 
 const PORT = process.env.PORT || 3000;
-// Estado online/offline (persistente en memoria para demo, usar DB para producción)
-let portfolioOnline = false;
+
+// Estado online/offline persistente en SQLite
+function getPortfolioOnline(cb) {
+  db.get('SELECT valor FROM config WHERE clave = ? LIMIT 1', ['online'], (err, row) => {
+    if (err || !row) return cb(false);
+    cb(row.valor === '1');
+  });
+}
+function setPortfolioOnline(online, cb) {
+  db.run('INSERT OR REPLACE INTO config (clave, valor) VALUES (?, ?)', ['online', online ? '1' : '0'], cb);
+}
+// Crear tabla config si no existe
+db.serialize(() => {
+  db.run(`CREATE TABLE IF NOT EXISTS config (
+    clave TEXT PRIMARY KEY,
+    valor TEXT
+  )`);
+  // Si no existe el valor, ponerlo en 0 (offline)
+  db.get('SELECT valor FROM config WHERE clave = ? LIMIT 1', ['online'], (err, row) => {
+    if (!row) {
+      db.run('INSERT INTO config (clave, valor) VALUES (?, ?)', ['online', '0']);
+    }
+  });
+});
 
 
 // Middleware para parsear JSON
@@ -73,16 +95,28 @@ app.get('/api/accesos.csv', (req, res) => {
   });
 });
 
+
+// API: obtener estado actual
+app.get('/api/portfolio-status', (req, res) => {
+  getPortfolioOnline(online => {
+    res.json({ online });
+  });
+});
+
 // API: cambiar estado (requiere contraseña)
 app.post('/api/portfolio-status', (req, res) => {
   const { password } = req.body;
-  // Contraseña segura desde variable de entorno
   const correct = password && password === process.env.PORTFOLIO_SECRET;
   if (!correct) {
     return res.status(401).json({ success: false, message: 'Contraseña incorrecta.' });
   }
-  portfolioOnline = !portfolioOnline;
-  res.json({ success: true, online: portfolioOnline });
+  getPortfolioOnline(current => {
+    const newState = !current;
+    setPortfolioOnline(newState, err => {
+      if (err) return res.status(500).json({ success: false, message: 'Error al guardar.' });
+      res.json({ success: true, online: newState });
+    });
+  });
 });
 
 // Servir archivos estáticos correctamente

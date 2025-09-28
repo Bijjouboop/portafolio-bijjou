@@ -148,8 +148,11 @@
                 <span class="ms-emoji">💤</span>
             </div>
             <h1 class="ms-title">Portafolio y Usuario <span class="ms-name">BijjouPro08</span></h1>
-            <p class="ms-sub">Offline actualmente</p>
-            <p class="ms-desc">Lamentamos las molestias, pero actualmente no está activo.<br>Esperemos que la vuelta sea pronto.</p>
+            <p class="ms-sub">Modo mantenimiento</p>
+            <p class="ms-desc" id="maintenance-desc">
+                Lamentamos las molestias, el portafolio está en mantenimiento.<br>
+                <span id="backend-status-msg">Comprobando estado del servidor...</span>
+            </p>
             <div class="ms-actions">
                 <a href="https://discord.com/users/BijjouPro08" target="_blank" class="btn discord minimal-btn ms-btn">Discord</a>
                 <a href="mailto:bijjou433@gmail.com" class="btn mail minimal-btn ms-btn">Correo</a>
@@ -443,6 +446,29 @@
 
 </body>
     <script>
+        // Comprobar estado del backend y base de datos
+        (function checkBackendStatus(){
+            var msg = document.getElementById('backend-status-msg');
+            if (!msg) return;
+            fetch('/api/portfolio-status', {cache:'no-store'})
+                .then(r => {
+                    if (!r.ok) throw new Error('No responde');
+                    return r.json();
+                })
+                .then(data => {
+                    if (typeof data.online === 'boolean') {
+                        msg.textContent = 'Servidor backend y base de datos: OK';
+                        msg.style.color = '#43d675';
+                    } else {
+                        msg.textContent = 'Servidor backend activo, pero sin acceso a la base de datos.';
+                        msg.style.color = '#e67e22';
+                    }
+                })
+                .catch(err => {
+                    msg.textContent = 'No se puede conectar con el backend o la base de datos. Puede que el servidor esté caído.';
+                    msg.style.color = '#e74c3c';
+                });
+        })();
         // Inject YouTube nocookie iframe only after user interaction to prevent ad/tracking preloads
         ;(function(){
             function loadYoutube(el){
