@@ -34,16 +34,16 @@ function getPortfolioOnline(cb) {
 function setPortfolioOnline(online, cb) {
   db.run('INSERT OR REPLACE INTO config (clave, valor) VALUES (?, ?)', ['online', online ? '1' : '0'], cb);
 }
-// Crear tabla config si no existe
+// Crear tabla config si no existe y asegurar que el valor por defecto sea online (1)
 db.serialize(() => {
   db.run(`CREATE TABLE IF NOT EXISTS config (
     clave TEXT PRIMARY KEY,
     valor TEXT
   )`);
-  // Si no existe el valor, ponerlo en 0 (offline)
+  // Si no existe el valor, ponerlo en 1 (online)
   db.get('SELECT valor FROM config WHERE clave = ? LIMIT 1', ['online'], (err, row) => {
     if (!row) {
-      db.run('INSERT INTO config (clave, valor) VALUES (?, ?)', ['online', '0']);
+      db.run('INSERT INTO config (clave, valor) VALUES (?, ?)', ['online', '1']);
     }
   });
 });
