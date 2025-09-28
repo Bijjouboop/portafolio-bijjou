@@ -2,18 +2,75 @@
 require('dotenv').config();
 const express = require('express');
 const path = require('path');
+
+const sqlite3 = require('sqlite3').verbose();
+const fs = require('fs');
 const app = express();
+
+// Inicializar base de datos SQLite
+const dbPath = path.join(__dirname, 'accesos.db');
+const dbExists = fs.existsSync(dbPath);
+const db = new sqlite3.Database(dbPath);
+if (!dbExists) {
+  db.serialize(() => {
+    db.run(`CREATE TABLE IF NOT EXISTS accesos (
+      id INTEGER PRIMARY KEY AUTOINCREMENT,
+      ip TEXT,
+      user_agent TEXT,
+      fecha DATETIME DEFAULT CURRENT_TIMESTAMP
+    )`);
+  });
+}
 
 const PORT = process.env.PORT || 3000;
 // Estado online/offline (persistente en memoria para demo, usar DB para producción)
 let portfolioOnline = false;
 
+
 // Middleware para parsear JSON
 app.use(express.json());
 
-// API: obtener estado actual
-app.get('/api/portfolio-status', (req, res) => {
-  res.json({ online: portfolioOnline });
+// Middleware para registrar IPs y datos de acceso
+app.use((req, res, next) => {
+  // No registrar peticiones a archivos estáticos ni a la API de estado
+  if (!req.path.startsWith('/api/portfolio-status') && !req.path.match(/\.(js|css|png|jpg|svg|ico|xml|txt)$/)) {
+    const ip = req.headers['x-forwarded-for']?.split(',')[0] || req.socket.remoteAddress || '';
+    const userAgent = req.headers['user-agent'] || '';
+    db.run('INSERT INTO accesos (ip, user_agent) VALUES (?, ?)', [ip, userAgent]);
+  }
+  next();
+});
+
+
+// API: consultar accesos guardados (requiere clave admin por query param ?key=...)
+app.get('/api/accesos', (req, res) => {
+  const key = req.query.key;
+  if (!key || key !== process.env.PORTFOLIO_SECRET) {
+    return res.status(401).json({ error: 'No autorizado' });
+  }
+  db.all('SELECT * FROM accesos ORDER BY fecha DESC', [], (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Error DB' });
+    res.json(rows);
+  });
+});
+
+// API: exportar accesos como CSV (requiere clave admin por query param ?key=...)
+app.get('/api/accesos.csv', (req, res) => {
+  const key = req.query.key;
+  if (!key || key !== process.env.PORTFOLIO_SECRET) {
+    return res.status(401).send('No autorizado');
+  }
+  db.all('SELECT * FROM accesos ORDER BY fecha DESC', [], (err, rows) => {
+    if (err) return res.status(500).send('Error DB');
+    let csv = 'id,ip,user_agent,fecha\n';
+    rows.forEach(r => {
+      // Escapar comillas y separar por comas
+      csv += `${r.id},"${(r.ip||'').replace(/"/g,'""')}","${(r.user_agent||'').replace(/"/g,'""')}",${r.fecha}\n`;
+    });
+    res.setHeader('Content-Type', 'text/csv');
+    res.setHeader('Content-Disposition', 'attachment; filename="accesos.csv"');
+    res.send(csv);
+  });
 });
 
 // API: cambiar estado (requiere contraseña)

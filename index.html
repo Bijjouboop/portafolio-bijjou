@@ -45,6 +45,95 @@
     <script defer src="main.js"></script>
 </head>
 <body class="minimal-bg maintenance" data-maintenance-secret="Mbijjou200808?">
+    <!-- Aviso de privacidad e IP -->
+    <div id="privacy-banner" class="cookie-banner" style="display:block;background:#222;">
+        <div class="cookie-banner__content">
+            <span>Este sitio registra la <b>dirección IP</b> y datos técnicos de acceso por motivos de seguridad y control de visitas. Al navegar, aceptas este registro. <a href="#" id="privacy-more-info" style="color:#43d675;text-decoration:underline;">Más información</a></span>
+        </div>
+    </div>
+    <!-- /Aviso de privacidad e IP -->
+    <!-- Aviso de cookies -->
+    <!-- Modal de información de privacidad/IP -->
+    <div id="privacy-info-modal" class="epic-modal" role="dialog" aria-modal="true" aria-labelledby="privacy-info-title" aria-describedby="privacy-info-desc" style="display:none;z-index:10000;">
+        <div class="epic-modal__backdrop" data-close="true"></div>
+        <div class="epic-modal__dialog" role="document">
+            <button class="epic-modal__close minimal-btn" aria-label="Cerrar ventana" data-close="true">✕</button>
+            <div class="epic-modal__content">
+                <h2 id="privacy-info-title" tabindex="-1">Privacidad y registro de IP</h2>
+                <p id="privacy-info-desc">
+                    Por motivos de seguridad y control de visitas, este sitio almacena la dirección IP y datos técnicos (navegador, fecha/hora) de cada acceso en una base de datos local.<br><br>
+                    <b>No</b> se comparten estos datos con terceros ni se usan para publicidad.<br><br>
+                    Si no estás de acuerdo, por favor abandona el sitio.
+                </p>
+                <div class="epic-modal__actions">
+                    <button class="btn minimal-btn" data-close="true">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal de información de privacidad/IP -->
+        // =========================
+        // Aviso de privacidad e IP
+        // =========================
+        document.addEventListener('DOMContentLoaded', function() {
+            var privacyMoreInfo = document.getElementById('privacy-more-info');
+            var privacyInfoModal = document.getElementById('privacy-info-modal');
+            if (privacyMoreInfo && privacyInfoModal) {
+                privacyMoreInfo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    privacyInfoModal.style.display = 'block';
+                    privacyInfoModal.style.opacity = '0';
+                    setTimeout(function(){
+                        privacyInfoModal.style.opacity = '1';
+                        privacyInfoModal.style.transition = 'opacity 0.2s';
+                    }, 10);
+                    var t = document.getElementById('privacy-info-title');
+                    if (t) t.focus();
+                });
+                privacyInfoModal.addEventListener('click', function(e) {
+                    if (e.target.dataset.close === 'true') {
+                        privacyInfoModal.style.opacity = '0';
+                        setTimeout(function(){
+                            privacyInfoModal.style.display = 'none';
+                        }, 180);
+                    }
+                });
+                document.addEventListener('keydown', function(e) {
+                    if (privacyInfoModal.style.display === 'block' && e.key === 'Escape') {
+                        privacyInfoModal.style.opacity = '0';
+                        setTimeout(function(){
+                            privacyInfoModal.style.display = 'none';
+                        }, 180);
+                    }
+                });
+            }
+        });
+    <div id="cookie-banner" class="cookie-banner" style="display:none;">
+        <div class="cookie-banner__content">
+            <span>Este sitio utiliza <b>cookies técnicas</b> esenciales para su funcionamiento. Al continuar navegando, aceptas su uso. <a href="#" id="cookie-more-info" style="color:#43d675;text-decoration:underline;">Más información</a></span>
+            <button id="cookie-accept" class="btn minimal-btn" style="margin-left:1em;">Aceptar</button>
+        </div>
+    </div>
+    <!-- /Aviso de cookies -->
+    <!-- Modal de información de cookies -->
+    <div id="cookie-info-modal" class="epic-modal" role="dialog" aria-modal="true" aria-labelledby="cookie-info-title" aria-describedby="cookie-info-desc" style="display:none;z-index:10000;">
+        <div class="epic-modal__backdrop" data-close="true"></div>
+        <div class="epic-modal__dialog" role="document">
+            <button class="epic-modal__close minimal-btn" aria-label="Cerrar ventana" data-close="true">✕</button>
+            <div class="epic-modal__content">
+                <h2 id="cookie-info-title" tabindex="-1">Información sobre cookies técnicas</h2>
+                <p id="cookie-info-desc">
+                    Este sitio solo utiliza <b>cookies técnicas esenciales</b> para su funcionamiento básico, como recordar tu preferencia de cookies.<br><br>
+                    <b>No</b> se recogen datos personales, <b>no</b> se usan cookies de terceros ni de seguimiento.<br><br>
+                    Puedes aceptar o rechazar el uso de cookies técnicas, pero sin ellas el sitio podría no funcionar correctamente.
+                </p>
+                <div class="epic-modal__actions">
+                    <button class="btn minimal-btn" data-close="true">Cerrar</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- /Modal de información de cookies -->
     <!-- Mensaje de bienvenida animado -->
     <div id="welcome-message" class="welcome-message" aria-live="polite">
         <span>¡Bienvenido/a, visitante!</span>
@@ -356,32 +445,110 @@
     <script>
         // Inject YouTube nocookie iframe only after user interaction to prevent ad/tracking preloads
         ;(function(){
-                function loadYoutube(el){
-                        if (!el || el.dataset.loaded) return;
-                        var src = el.dataset.src || ('https://www.youtube-nocookie.com/embed/' + el.dataset.videoId + '?rel=0&modestbranding=1');
-                        var iframe = document.createElement('iframe');
-                        iframe.setAttribute('src', src);
-                        iframe.setAttribute('title', 'Video');
-                        iframe.setAttribute('frameborder', '0');
-                        iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
-                        iframe.setAttribute('allowfullscreen', '');
-                        iframe.style.width = '100%';
-                        iframe.style.height = '100%';
-                        el.dataset.loaded = '1';
-                        // replace placeholder with iframe
-                        el.parentNode.replaceChild(iframe, el);
+            function loadYoutube(el){
+                if (!el || el.dataset.loaded) return;
+                var src = el.dataset.src || ('https://www.youtube-nocookie.com/embed/' + el.dataset.videoId + '?rel=0&modestbranding=1');
+                var iframe = document.createElement('iframe');
+                iframe.setAttribute('src', src);
+                iframe.setAttribute('title', 'Video');
+                iframe.setAttribute('frameborder', '0');
+                iframe.setAttribute('allow', 'accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share');
+                iframe.setAttribute('allowfullscreen', '');
+                iframe.style.width = '100%';
+                iframe.style.height = '100%';
+                el.dataset.loaded = '1';
+                // replace placeholder with iframe
+                el.parentNode.replaceChild(iframe, el);
+            }
+            document.addEventListener('click', function(e){
+                var t = e.target.closest('.youtube-lite');
+                if (t) { loadYoutube(t); }
+            });
+            document.addEventListener('keydown', function(e){
+                if (e.key === 'Enter' || e.key === ' ') {
+                    var t = document.activeElement;
+                    if (t && t.classList && t.classList.contains('youtube-lite')) { e.preventDefault(); loadYoutube(t); }
                 }
-                document.addEventListener('click', function(e){
-                        var t = e.target.closest('.youtube-lite');
-                        if (t) { loadYoutube(t); }
-                });
-                document.addEventListener('keydown', function(e){
-                        if (e.key === 'Enter' || e.key === ' ') {
-                                var t = document.activeElement;
-                                if (t && t.classList && t.classList.contains('youtube-lite')) { e.preventDefault(); loadYoutube(t); }
-                        }
-                });
+            });
         })();
+
+        // =========================
+        // Aviso y cookies técnicas esenciales
+        // =========================
+        function setCookie(name, value, days) {
+            var expires = '';
+            if (days) {
+                var date = new Date();
+                date.setTime(date.getTime() + (days*24*60*60*1000));
+                expires = '; expires=' + date.toUTCString();
+            }
+            document.cookie = name + '=' + (value || '') + expires + '; path=/; SameSite=Lax';
+        }
+        function getCookie(name) {
+            var nameEQ = name + '=';
+            var ca = document.cookie.split(';');
+            for(var i=0;i < ca.length;i++) {
+                var c = ca[i];
+                while (c.charAt(0)==' ') c = c.substring(1,c.length);
+                if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length,c.length);
+            }
+            return null;
+        }
+        function showCookieBanner() {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'block';
+        }
+        function hideCookieBanner() {
+            var banner = document.getElementById('cookie-banner');
+            if (banner) banner.style.display = 'none';
+        }
+        // Cookie técnica esencial: preferencia de cookies aceptada
+        document.addEventListener('DOMContentLoaded', function() {
+            if (!getCookie('cookies_accepted')) {
+                showCookieBanner();
+            }
+            var acceptBtn = document.getElementById('cookie-accept');
+            if (acceptBtn) {
+                acceptBtn.addEventListener('click', function() {
+                    setCookie('cookies_accepted', '1', 365);
+                    hideCookieBanner();
+                });
+            }
+            // Modal de información de cookies
+            var moreInfo = document.getElementById('cookie-more-info');
+            var cookieInfoModal = document.getElementById('cookie-info-modal');
+            if (moreInfo && cookieInfoModal) {
+                moreInfo.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    cookieInfoModal.style.display = 'block';
+                    cookieInfoModal.style.opacity = '0';
+                    setTimeout(function(){
+                        cookieInfoModal.style.opacity = '1';
+                        cookieInfoModal.style.transition = 'opacity 0.2s';
+                    }, 10);
+                    var t = document.getElementById('cookie-info-title');
+                    if (t) t.focus();
+                });
+                // Cerrar modal al hacer click en fondo o botón cerrar
+                cookieInfoModal.addEventListener('click', function(e) {
+                    if (e.target.dataset.close === 'true') {
+                        cookieInfoModal.style.opacity = '0';
+                        setTimeout(function(){
+                            cookieInfoModal.style.display = 'none';
+                        }, 180);
+                    }
+                });
+                // Cerrar con Escape
+                document.addEventListener('keydown', function(e) {
+                    if (cookieInfoModal.style.display === 'block' && e.key === 'Escape') {
+                        cookieInfoModal.style.opacity = '0';
+                        setTimeout(function(){
+                            cookieInfoModal.style.display = 'none';
+                        }, 180);
+                    }
+                });
+            }
+        });
 
         // =========================
         // Verificación segura de contraseña para cambiar estado
