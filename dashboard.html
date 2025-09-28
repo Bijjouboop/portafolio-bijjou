@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard Privada - BijjouPro08</title>
+    <link rel="stylesheet" href="./style.css">
+    <style>
+        .dashboard-container { max-width: 700px; margin: 2em auto; background: #181c1f; color: #fff; border-radius: 8px; box-shadow: 0 2px 16px #0002; padding: 2em; }
+        .dashboard-container h1 { font-size: 2em; margin-bottom: 1em; }
+        .dashboard-form { margin-bottom: 1.5em; }
+        .dashboard-form input, .dashboard-form select { margin-right: 1em; padding: 0.4em 0.7em; border-radius: 4px; border: 1px solid #333; background: #222; color: #fff; }
+        .dashboard-form button { padding: 0.4em 1.2em; border-radius: 4px; border: none; background: #43d675; color: #222; font-weight: bold; cursor: pointer; }
+        .dashboard-table { width: 100%; border-collapse: collapse; margin-top: 1em; }
+        .dashboard-table th, .dashboard-table td { border: 1px solid #333; padding: 0.5em 0.7em; }
+        .dashboard-table th { background: #23272a; }
+        .dashboard-table tr:nth-child(even) { background: #23272a; }
+        .dashboard-error { color: #e74c3c; margin-top: 1em; }
+    </style>
+</head>
+<body>
+    <div class="dashboard-container">
+        <h1>Dashboard Privada</h1>
+        <form class="dashboard-form" id="query-form" autocomplete="off">
+            <label>Buscar IP: <input type="text" id="ip-input" placeholder="IP exacta o parcial"></label>
+            <label>Desde: <input type="date" id="from-date"></label>
+            <label>Hasta: <input type="date" id="to-date"></label>
+            <button type="submit">Buscar</button>
+        </form>
+        <div id="dashboard-error" class="dashboard-error"></div>
+        <table class="dashboard-table" id="results-table" style="display:none;">
+            <thead>
+                <tr>
+                    <th>ID</th>
+                    <th>IP</th>
+                    <th>User Agent</th>
+                    <th>Fecha</th>
+                </tr>
+            </thead>
+            <tbody></tbody>
+        </table>
+    </div>
+    <script>
+    document.getElementById('query-form').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const ip = document.getElementById('ip-input').value.trim();
+        const from = document.getElementById('from-date').value;
+        const to = document.getElementById('to-date').value;
+        const errorDiv = document.getElementById('dashboard-error');
+        const table = document.getElementById('results-table');
+        const tbody = table.querySelector('tbody');
+        errorDiv.textContent = '';
+        table.style.display = 'none';
+        tbody.innerHTML = '';
+        // Construir query params
+        let params = [];
+        if (ip) params.push('ip=' + encodeURIComponent(ip));
+        if (from) params.push('from=' + encodeURIComponent(from));
+        if (to) params.push('to=' + encodeURIComponent(to));
+        // Requiere clave admin
+        let key = localStorage.getItem('dashboard_key') || prompt('Introduce la clave de administrador:');
+        if (!key) return errorDiv.textContent = 'Clave requerida.';
+        localStorage.setItem('dashboard_key', key);
+        params.push('key=' + encodeURIComponent(key));
+        try {
+            const res = await fetch('/api/dashboard-accesos?' + params.join('&'));
+            if (!res.ok) throw new Error('No autorizado o error de backend');
+            const data = await res.json();
+            if (!Array.isArray(data)) throw new Error('Respuesta inesperada');
+            if (data.length === 0) {
+                errorDiv.textContent = 'No se encontraron resultados.';
+                return;
+            }
+            data.forEach(row => {
+                const tr = document.createElement('tr');
+                tr.innerHTML = `<td>${row.id}</td><td>${row.ip}</td><td>${row.user_agent}</td><td>${row.fecha}</td>`;
+                tbody.appendChild(tr);
+            });
+            table.style.display = '';
+        } catch (err) {
+            errorDiv.textContent = err.message || 'Error de consulta.';
+        }
+    });
+    </script>
+</body>
+</html>

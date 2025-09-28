@@ -144,6 +144,17 @@
             </nav>
             <button class="hamburger minimal-hamburger" id="hamburger" aria-label="Abrir menú" aria-controls="main-nav" aria-expanded="false"><span></span><span></span><span></span></button>
             <button id="open-status-btn" class="minimal-btn" aria-controls="status-modal" type="button">Ver estado</button>
+            <a href="dashboard.html" id="dashboard-link" class="minimal-btn" style="display:none; margin-left:1em;">Dashboard</a>
+    <script>
+    // Mostrar enlace a dashboard solo si el admin ya puso la clave
+    (function(){
+        var key = localStorage.getItem('dashboard_key');
+        if (key) {
+            var dash = document.getElementById('dashboard-link');
+            if (dash) dash.style.display = '';
+        }
+    })();
+    </script>
         </div>
     </header>
     <main class="minimal-main">

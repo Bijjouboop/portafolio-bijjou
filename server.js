@@ -48,7 +48,32 @@ db.serialize(() => {
   });
 });
 
-
+// API: dashboard privada para consultar accesos con filtros avanzados
+app.get('/api/dashboard-accesos', (req, res) => {
+  const key = req.query.key;
+  if (!key || key !== process.env.PORTFOLIO_SECRET) {
+    return res.status(401).json({ error: 'No autorizado' });
+  }
+  let sql = 'SELECT * FROM accesos WHERE 1=1';
+  let params = [];
+  if (req.query.ip) {
+    sql += ' AND ip LIKE ?';
+    params.push('%' + req.query.ip + '%');
+  }
+  if (req.query.from) {
+    sql += ' AND date(fecha) >= date(?)';
+    params.push(req.query.from);
+  }
+  if (req.query.to) {
+    sql += ' AND date(fecha) <= date(?)';
+    params.push(req.query.to);
+  }
+  sql += ' ORDER BY fecha DESC LIMIT 200';
+  db.all(sql, params, (err, rows) => {
+    if (err) return res.status(500).json({ error: 'Error DB' });
+    res.json(rows);
+  });
+});
 // Middleware para parsear JSON
 app.use(express.json());
 
