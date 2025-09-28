@@ -146,14 +146,21 @@
             <button id="open-status-btn" class="minimal-btn" aria-controls="status-modal" type="button">Ver estado</button>
             <a href="dashboard.html" id="dashboard-link" class="minimal-btn" style="display:none; margin-left:1em;">Dashboard</a>
     <script>
-    // Mostrar enlace a dashboard solo si el admin ya puso la clave
-    (function(){
+    // Robustez: Esperar DOMContentLoaded para asegurar que los elementos existen
+    document.addEventListener('DOMContentLoaded', function() {
+        // Mostrar enlace a dashboard solo si el admin ya puso la clave
         var key = localStorage.getItem('dashboard_key');
-        if (key) {
-            var dash = document.getElementById('dashboard-link');
-            if (dash) dash.style.display = '';
+        var dash = document.getElementById('dashboard-link');
+        if (key && dash) dash.style.display = '';
+        // Botón mantenimiento: siempre abre el modal correctamente
+        var maintBtn = document.getElementById('maintenance-toggle');
+        var openStatusBtn = document.getElementById('open-status-btn');
+        if (maintBtn && openStatusBtn) {
+            maintBtn.addEventListener('click', function() {
+                openStatusBtn.click();
+            });
         }
-    })();
+    });
     </script>
         </div>
     </header>
