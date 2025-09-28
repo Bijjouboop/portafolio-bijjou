@@ -61,6 +61,63 @@ window.addEventListener('DOMContentLoaded', function() {
             }
         });
     }
+        // Modal de estado: feedback y contraseña (persistente en backend)
+        var portfolioStatus = document.getElementById('portfolio-status');
+        var footerStatus = document.getElementById('footer-status');
+        if (statusForm && statusPassword && statusFeedback && toggleBtn) {
+            statusForm.addEventListener('submit', async function(e) {
+                e.preventDefault();
+                var pass = statusPassword.value.trim();
+                statusFeedback.textContent = '';
+                statusFeedback.className = 'form-feedback minimal-form-feedback';
+                if (!pass) return;
+                try {
+                    const res = await fetch('/api/portfolio-status', {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ password: pass })
+                    });
+                    const data = await res.json();
+                    if (data.success) {
+                        statusFeedback.textContent = '¡Contraseña correcta! Estado cambiado.';
+                        statusFeedback.className = 'form-feedback minimal-form-feedback success';
+                        // Actualizar estado visual
+                        if (portfolioStatus) {
+                            portfolioStatus.textContent = data.online ? 'Online' : 'Offline';
+                            portfolioStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                        }
+                        if (footerStatus) {
+                            footerStatus.textContent = data.online ? 'Online' : 'Offline';
+                            footerStatus.style.color = data.online ? '#43d675' : '#e74c3c';
+                        }
+                        setTimeout(function() {
+                            statusFeedback.textContent = '';
+                            statusFeedback.className = 'form-feedback minimal-form-feedback';
+                            statusPassword.value = '';
+                        }, 1200);
+                    } else {
+                        statusFeedback.textContent = data.message || 'Contraseña incorrecta.';
+                        statusFeedback.className = 'form-feedback minimal-form-feedback error';
+                        setTimeout(function() {
+                            statusFeedback.textContent = '';
+                            statusFeedback.className = 'form-feedback minimal-form-feedback';
+                        }, 1200);
+                        statusPassword.value = '';
+                        statusPassword.focus();
+                    }
+                } catch (err) {
+                    statusFeedback.textContent = 'Error de conexión.';
+                    statusFeedback.className = 'form-feedback minimal-form-feedback error';
+                }
+            });
+            // Enter en input también envía
+            statusPassword.addEventListener('keydown', function(e) {
+                if (e.key === 'Enter') {
+                    e.preventDefault();
+                    toggleBtn.click();
+                }
+            });
+        }
 });
 // Animaciones y detalles extra para el portafolio
 
@@ -101,19 +158,28 @@ document.addEventListener('DOMContentLoaded', () => {
         let state = getState();
         apply(state);
         // Click handler
-        toggle?.addEventListener('click', () => {
-            // Requiere autenticación por palabra secreta
-            if (!isAuthed()) {
-                const input = window.prompt('Introduce la palabra secreta para alternar mantenimiento:');
-                if (!input || input !== SECRET) {
-                    return; // no autorizado
-                }
-                try { sessionStorage.setItem(AUTH_KEY, '1'); } catch(_) {}
+            toggle?.addEventListener('click', () => {
+                // Abre el modal de estado
+                const openBtn = document.getElementById('open-status-btn');
+                if (openBtn) openBtn.click();
+            });
+            // Estado inicial: consulta al backend
+            function updateFromBackend() {
+                fetch('/api/portfolio-status', {cache:'no-store'})
+                    .then(r => r.json())
+                    .then(data => {
+                        const isOffline = !data.online;
+                        body.classList.toggle('maintenance', isOffline);
+                        if (toggle) toggle.setAttribute('aria-pressed', isOffline ? 'true' : 'false');
+                    });
             }
-            state = !body.classList.contains('maintenance');
-            apply(state);
-            try { localStorage.setItem(key, state ? '1' : '0'); } catch(_) {}
-        });
+            updateFromBackend();
+            // Escuchar cambios de estado desde el modal y actualizar visualmente
+            document.addEventListener('submit', function(e) {
+                if (e.target && e.target.id === 'status-form') {
+                    setTimeout(updateFromBackend, 500);
+                }
+            });
     })();
     // --- Menú hamburguesa (mejorado) ---
     const hamburger = document.getElementById('hamburger');
@@ -202,6 +268,39 @@ document.addEventListener('DOMContentLoaded', () => {
             setTimeout(() => this.classList.remove('copied'), 1200);
         });
     });
+        // Permitir cerrar el aviso de cookies y el de IP siempre
+        // Aviso de cookies
+        const cookieBanner = document.getElementById('cookie-banner');
+        if (cookieBanner) {
+            let closeBtn = cookieBanner.querySelector('.cookie-close');
+            if (!closeBtn) {
+                closeBtn = document.createElement('button');
+                closeBtn.textContent = '✕';
+                closeBtn.className = 'cookie-close minimal-btn';
+                closeBtn.style.marginLeft = '1em';
+                closeBtn.setAttribute('aria-label', 'Cerrar aviso de cookies');
+                cookieBanner.querySelector('.cookie-banner__content').appendChild(closeBtn);
+            }
+            closeBtn.addEventListener('click', function() {
+                cookieBanner.style.display = 'none';
+            });
+        }
+        // Aviso de privacidad/IP
+        const privacyBanner = document.getElementById('privacy-banner');
+        if (privacyBanner) {
+            let closeBtn = privacyBanner.querySelector('.privacy-close');
+            if (!closeBtn) {
+                closeBtn = document.createElement('button');
+                closeBtn.textContent = '✕';
+                closeBtn.className = 'privacy-close minimal-btn';
+                closeBtn.style.marginLeft = '1em';
+                closeBtn.setAttribute('aria-label', 'Cerrar aviso de privacidad');
+                privacyBanner.querySelector('.cookie-banner__content').appendChild(closeBtn);
+            }
+            closeBtn.addEventListener('click', function() {
+                privacyBanner.style.display = 'none';
+            });
+        }
 
     // --- Formulario de soporte (Formspree) ---
     const soporteForm = document.getElementById('soporte-form');

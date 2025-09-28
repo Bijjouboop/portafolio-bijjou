@@ -44,7 +44,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700;900&family=Comic+Neue:wght@700&display=swap" rel="stylesheet">
     <script defer src="main.js"></script>
 </head>
-<body class="minimal-bg maintenance" data-maintenance-secret="Mbijjou200808?">
+<body class="minimal-bg" data-maintenance-secret="Mbijjou200808?">
     <!-- Aviso de privacidad e IP -->
     <div id="privacy-banner" class="cookie-banner" style="display:block;background:#222;">
         <div class="cookie-banner__content">
@@ -72,42 +72,7 @@
         </div>
     </div>
     <!-- /Modal de información de privacidad/IP -->
-        // =========================
-        // Aviso de privacidad e IP
-        // =========================
-        document.addEventListener('DOMContentLoaded', function() {
-            var privacyMoreInfo = document.getElementById('privacy-more-info');
-            var privacyInfoModal = document.getElementById('privacy-info-modal');
-            if (privacyMoreInfo && privacyInfoModal) {
-                privacyMoreInfo.addEventListener('click', function(e) {
-                    e.preventDefault();
-                    privacyInfoModal.style.display = 'block';
-                    privacyInfoModal.style.opacity = '0';
-                    setTimeout(function(){
-                        privacyInfoModal.style.opacity = '1';
-                        privacyInfoModal.style.transition = 'opacity 0.2s';
-                    }, 10);
-                    var t = document.getElementById('privacy-info-title');
-                    if (t) t.focus();
-                });
-                privacyInfoModal.addEventListener('click', function(e) {
-                    if (e.target.dataset.close === 'true') {
-                        privacyInfoModal.style.opacity = '0';
-                        setTimeout(function(){
-                            privacyInfoModal.style.display = 'none';
-                        }, 180);
-                    }
-                });
-                document.addEventListener('keydown', function(e) {
-                    if (privacyInfoModal.style.display === 'block' && e.key === 'Escape') {
-                        privacyInfoModal.style.opacity = '0';
-                        setTimeout(function(){
-                            privacyInfoModal.style.display = 'none';
-                        }, 180);
-                    }
-                });
-            }
-        });
+    <!-- El código JS para el aviso de privacidad/IP está en main.js -->
     <div id="cookie-banner" class="cookie-banner" style="display:none;">
         <div class="cookie-banner__content">
             <span>Este sitio utiliza <b>cookies técnicas</b> esenciales para su funcionamiento. Al continuar navegando, aceptas su uso. <a href="#" id="cookie-more-info" style="color:#43d675;text-decoration:underline;">Más información</a></span>
@@ -140,7 +105,7 @@
     </div>
     <!-- /Mensaje de bienvenida animado -->
     <!-- Pantalla de Mantenimiento -->
-    <div id="maintenance-screen" class="maintenance-screen" role="status" aria-live="polite">
+    <div id="maintenance-screen" class="maintenance-screen" role="status" aria-live="polite" style="display:none;">
         <div class="ms-wrapper">
             <div class="ms-icons">
                 <span class="ms-emoji">🛠️</span>
@@ -446,25 +411,32 @@
 
 </body>
     <script>
-        // Comprobar estado del backend y base de datos
-        (function checkBackendStatus(){
+        // Persistencia real del modo mantenimiento: solo mostrar pantalla si el backend indica offline
+        (function mantenimientoPersistente(){
+            var maintenanceScreen = document.getElementById('maintenance-screen');
+            var body = document.body;
             var msg = document.getElementById('backend-status-msg');
-            if (!msg) return;
             fetch('/api/portfolio-status', {cache:'no-store'})
-                .then(r => {
-                    if (!r.ok) throw new Error('No responde');
-                    return r.json();
-                })
+                .then(r => { if (!r.ok) throw new Error('No responde'); return r.json(); })
                 .then(data => {
                     if (typeof data.online === 'boolean') {
-                        msg.textContent = 'Servidor backend y base de datos: OK';
-                        msg.style.color = '#43d675';
+                        if (!data.online) {
+                            maintenanceScreen.style.display = 'block';
+                            body.classList.add('maintenance');
+                            msg.textContent = 'Servidor backend y base de datos: OK';
+                            msg.style.color = '#43d675';
+                        } else {
+                            maintenanceScreen.style.display = 'none';
+                            body.classList.remove('maintenance');
+                        }
                     } else {
                         msg.textContent = 'Servidor backend activo, pero sin acceso a la base de datos.';
                         msg.style.color = '#e67e22';
                     }
                 })
                 .catch(err => {
+                    maintenanceScreen.style.display = 'block';
+                    body.classList.add('maintenance');
                     msg.textContent = 'No se puede conectar con el backend o la base de datos. Puede que el servidor esté caído.';
                     msg.style.color = '#e74c3c';
                 });

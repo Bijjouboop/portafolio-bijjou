@@ -103,7 +103,7 @@ app.get('/api/portfolio-status', (req, res) => {
   });
 });
 
-// API: cambiar estado (requiere contraseña)
+// API: cambiar estado (requiere contraseña, persistente)
 app.post('/api/portfolio-status', (req, res) => {
   const { password } = req.body;
   const correct = password && password === process.env.PORTFOLIO_SECRET;
